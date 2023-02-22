@@ -1,0 +1,23 @@
+name:
+  "Lint"
+on:
+  pull_request:
+    branches: [ main ]
+
+lint:
+  name: Lint
+  runs-on: ubuntu-latest
+  steps:
+    - name: Check out the repo
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - name: Install dependencies
+      run: npm i
+
+    - name: Lint
+      run: npm run lint
