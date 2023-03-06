@@ -1,0 +1,45 @@
+@import 'src/styles/variables'
+
+.header_container
+  height: $header-height
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+  padding: 0 $indent 0 $indent
+  a
+    display: flex
+    align-items: center
+    height: 100%
+
+.logo_container
+  display: flex
+  height: 2rem
+  align-items: center
+
+.logo_img
+  height: 4.6rem
+
+.logo_text
+  margin-left: 1rem
+  color: $dark-blue
+  font-weight: 600
+  font-size: 1.5em
+
+.controls_container
+  display: flex
+  a
+    text-decoration: none
+  .item
+    padding: 0.8rem 1.2rem 0.8rem 1.2rem
+    font-family: inherit
+    font-size: 1.2em
+    font-weight: 500
+
+.sign_in
+  color: $dark-blue
+
+.sign_up
+  color: white
+  background: $heliotrope
+  border-radius: 1.5rem
