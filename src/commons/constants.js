@@ -1,1 +1,1 @@
-export const TOKEN_NAME = 'appToken';
+export const TOKEN_NAME = 'appToken'
