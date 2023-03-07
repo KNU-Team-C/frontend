@@ -11,7 +11,7 @@ const LandingPage = () => (
             <div className={styles.intro_text}>
                 <h1>Share your company’s projects</h1>
                 <p>Showcase your best creations with just one click. Generate customized portfolios depending on users needs</p>
-                <Link to="/signin">
+                <Link to="/search">
                     <div className={styles.explore_button}>Explore Now!</div>
                 </Link>
             </div>
@@ -20,7 +20,7 @@ const LandingPage = () => (
             <div className={styles.intro_text}>
                 <h1>Spend your time efficiently</h1>
                 <p>Fill in the data once and reuse it multiple times to compose different sets. You manage your projects while we manage their promotion</p>
-                <Link to="/signin">
+                <Link to="/search">
                     <div className={styles.explore_button}>Explore Now!</div>
                 </Link>
             </div>

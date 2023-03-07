@@ -21,6 +21,9 @@ const Header = () => {
                 <div className={styles.logo_text}>Optimum Portfolio</div>
             </div>
             <div className={styles.controls_container}>
+                <Link to="/search">
+                    <div className={styles.item}>Companies</div>
+                </Link>
                 {renderControls() && <Link to="/signin">
                     <div className={`${styles.item} ${styles.sign_in}`}>Sign in</div>
                 </Link>}
