@@ -5,11 +5,21 @@ import classNames from "../../commons/classnames";
 
 
 const AdminUserCard = (props) => {
-    const {username, status, company, onCommunicateClick, onUnbanClick, onBanClick} = props;
+    const {
+        username,
+        status,
+        company,
+        header,
+        details,
+        onCommunicateClick,
+        onUnbanClick,
+        onBanClick
+    } = props;
     return (
         <Card.Group itemsPerRow={1}>
             <Card>
                 <div className={styles.vertical}>
+                    {header}
                     <div className={styles.horizontal}>
                         <div>
                             <img className={styles.user_image}/>
@@ -26,7 +36,7 @@ const AdminUserCard = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className={styles.button_details}>Details</div>
+                    <div className={styles.button_details}>{details}</div>
                     <div className={styles.horizontal}>
                         <div className={classNames(styles.button_communicate, styles.button_common)}
                              onClick={onCommunicateClick}>
