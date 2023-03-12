@@ -10,6 +10,7 @@ import {TOKEN_NAME} from "../../commons/constants";
 import Footer from '../../components/Footer';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import AdminHomePage from "../../scenes/AdminHomePage";
+import AdminUserPage from "../../scenes/AdminUserSearch";
 
 const App = () => (
     <Router history={history}>
@@ -19,6 +20,7 @@ const App = () => (
             <Route exact path="/home" component={HomePage}/>
             <Route exact path="/search" component={SearchPage} />
             <Route exact path="/admin/home" component={AdminHomePage} />
+            <Route exact path="/admin/users_search" component={AdminUserPage} />
             {/* <Route exact path="/user/me" component={UserPage}/> */}
         </Switch>
         <Footer/>

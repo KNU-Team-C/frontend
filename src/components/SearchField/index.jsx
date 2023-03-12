@@ -3,13 +3,14 @@ import styles from './styles.module.sass';
 import classNames from "../../commons/classnames";
 
 
-const TagFilter = (props) => {
+const SearchField = (props) => {
     const {
+        className,
         onInput,
         onSearchClick
     } = props;
     return (
-        <div className={styles.horizontal}>
+        <div className={classNames(styles.horizontal,className)}>
             <input type={"text"}
                    placeholder={"Search..."}
                    className={classNames(styles.search_border, styles.search)}
@@ -22,4 +23,4 @@ const TagFilter = (props) => {
     );
 }
 
-export default TagFilter;
+export default SearchField;
