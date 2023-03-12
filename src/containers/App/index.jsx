@@ -21,8 +21,8 @@ const App = () => (
             <Route exact path="/home" component={HomePage}/>
             <Route exact path="/search" component={SearchPage} />
             <Route exact path="/admin/requests" component={AdminRequestsPage} />
-            <Route exact path="/admin/users_search" component={AdminUserPage} />
-            <Route exact path="/admin/companies_search" component={AdminCompanyPage} />
+            <Route exact path="/admin/users" component={AdminUserPage} />
+            <Route exact path="/admin/companies" component={AdminCompanyPage} />
             {/* <Route exact path="/user/me" component={UserPage}/> */}
         </Switch>
         <Footer/>
