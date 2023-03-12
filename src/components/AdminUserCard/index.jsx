@@ -7,6 +7,7 @@ import classNames from "../../commons/classnames";
 const AdminUserCard = (props) => {
     const {
         username,
+        image,
         status,
         company,
         header,
@@ -22,7 +23,7 @@ const AdminUserCard = (props) => {
                     {header}
                     <div className={styles.horizontal}>
                         <div>
-                            <img className={styles.user_image}/>
+                            <img src={image} className={styles.user_image} alt={'user image'}/>
                         </div>
                         <div className={styles.vertical}>
                             <div className={styles.username}>{username}</div>

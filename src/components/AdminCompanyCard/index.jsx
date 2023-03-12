@@ -8,6 +8,7 @@ const AdminCompanyCard = (props) => {
     const {
         header,
         companyName,
+        image,
         status,
         industries,
         technologies,
@@ -23,7 +24,7 @@ const AdminCompanyCard = (props) => {
                     {header}
                     <div className={styles.horizontal}>
                         <div>
-                            <img className={styles.request_image}/>
+                            <img src={image} className={styles.request_image} alt={'company image'}/>
                         </div>
                         <div className={styles.vertical}>
                             <div className={styles.company_name}>{companyName}</div>
