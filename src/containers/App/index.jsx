@@ -11,6 +11,7 @@ import Footer from '../../components/Footer';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import AdminHomePage from "../../scenes/AdminHomePage";
 import AdminUserPage from "../../scenes/AdminUserSearch";
+import AdminCompanyPage from "../../scenes/AdminCompanySearch";
 
 const App = () => (
     <Router history={history}>
@@ -21,6 +22,7 @@ const App = () => (
             <Route exact path="/search" component={SearchPage} />
             <Route exact path="/admin/home" component={AdminHomePage} />
             <Route exact path="/admin/users_search" component={AdminUserPage} />
+            <Route exact path="/admin/companies_search" component={AdminCompanyPage} />
             {/* <Route exact path="/user/me" component={UserPage}/> */}
         </Switch>
         <Footer/>
