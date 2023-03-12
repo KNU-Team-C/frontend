@@ -14,7 +14,7 @@ const TagFilter = (props) => {
         <div className={styles.vertical}>
             <div className={classNames(styles.horizontal, styles.space_between)}>
                 <div className={styles.title_text}>{title}</div>
-                <div className={styles.button_reset} onClick={onReset}>Reset</div>
+                <button className={styles.button_reset} onClick={onReset}>Reset</button>
             </div>
             <div className={classNames(styles.tags_border, styles.vertical)}>
                 <input type={"text"} placeholder={"Search..."} className={styles.search} onInput={onInput}/>

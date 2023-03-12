@@ -44,18 +44,18 @@ const AdminCompanyCard = (props) => {
                     </div>
                     <div className={styles.button_details}>{details}</div>
                     <div className={styles.horizontal}>
-                        <div className={classNames(styles.button_communicate, styles.button_common)}
+                        <button className={classNames(styles.button_communicate, styles.button_common)}
                              onClick={onCommunicateClick}>
                             Communicate
-                        </div>
-                        <div className={classNames(styles.button_unban, styles.button_common)}
+                        </button>
+                        <button className={classNames(styles.button_unban, styles.button_common)}
                              onClick={onVerifyClick}>
                             Verify
-                        </div>
-                        <div className={classNames(styles.button_ban, styles.button_common)}
+                        </button>
+                        <button className={classNames(styles.button_ban, styles.button_common)}
                              onClick={onDeclineClick}>
                             Decline
-                        </div>
+                        </button>
                     </div>
                 </div>
             </Card>

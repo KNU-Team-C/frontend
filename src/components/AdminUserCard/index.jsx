@@ -39,18 +39,18 @@ const AdminUserCard = (props) => {
                     </div>
                     <div className={styles.button_details}>{details}</div>
                     <div className={styles.horizontal}>
-                        <div className={classNames(styles.button_communicate, styles.button_common)}
+                        <button className={classNames(styles.button_communicate, styles.button_common)}
                              onClick={onCommunicateClick}>
                             Communicate
-                        </div>
-                        <div className={classNames(styles.button_unban, styles.button_common)}
+                        </button>
+                        <button className={classNames(styles.button_unban, styles.button_common)}
                              onClick={onUnbanClick}>
                             Unban
-                        </div>
-                        <div className={classNames(styles.button_ban, styles.button_common)}
+                        </button>
+                        <button className={classNames(styles.button_ban, styles.button_common)}
                              onClick={onBanClick}>
                             Ban
-                        </div>
+                        </button>
                     </div>
                 </div>
             </Card>
