@@ -8,7 +8,7 @@ const AdminRequestCompanyCard = (props) => {
     return (
         <AdminCompanyCard {...props}
                           header={
-                              <div className={styles.horizontal}>
+                              <div className={styles.type_of_request_container}>
                                   <div className={styles.type_of_request_title}>Type of Request:</div>
                                   <div className={styles.type_of_request_text}>{typeOfRequest}</div>
                               </div>
