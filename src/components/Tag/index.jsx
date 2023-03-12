@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.module.sass';
 import classNames from "../../commons/classnames";
+import Checkbox from "../Checkbox";
 
 
 const Tag = (props) => {
@@ -12,10 +13,7 @@ const Tag = (props) => {
     } = props;
     return (
         <div className={classNames(styles.horizontal, styles.tag, styles.space_between)}>
-            <div className={styles.horizontal}>
-                <input type={"checkbox"} checked={isSelected} onChange={onSelectionChange}/>
-                <div className={styles.tag_text}>{text}</div>
-            </div>
+            <Checkbox checked={isSelected} onChange={onSelectionChange} label={text}/>
             <div className={styles.tag_amount_text}>{amount}</div>
         </div>
     );
