@@ -13,11 +13,11 @@ const AdminUserPage = () => {
                 <TagFilter
                     title={'Type'}>
                     <Tag isSelected={false}
-                         text={'Verification'}
+                         text={'Banned'}
                          amount={1700}
                     />
                     <Tag isSelected={false}
-                         text={'Reports'}
+                         text={'Reported'}
                          amount={1710}
                     />
                 </TagFilter>

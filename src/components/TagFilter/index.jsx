@@ -11,7 +11,7 @@ const TagFilter = (props) => {
         onReset
     } = props;
     return (
-        <div className={styles.vertical}>
+        <div className={classNames(styles.vertical, props.className)}>
             <div className={classNames(styles.horizontal, styles.space_between)}>
                 <div className={styles.title_text}>{title}</div>
                 <button className={styles.button_reset} onClick={onReset}>Reset</button>
