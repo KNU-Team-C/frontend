@@ -28,12 +28,10 @@ const AdminUserPage = () => {
                     username={'Test username'}
                     status={'test status'}
                     image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmIOwOnuCEsJWQ-tRQ9G8yJsmkulH0-Ck8Jae58R5w&s'}
-                    company={'test company'}
                     details={'test details'}/>
                 <AdminUserCard username={'Test username'}
                                status={'test status'}
                                image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmIOwOnuCEsJWQ-tRQ9G8yJsmkulH0-Ck8Jae58R5w&s'}
-                               company={'test company'}
                                details={'test details'}/>
             </div>
         </div>

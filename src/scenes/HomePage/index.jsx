@@ -22,7 +22,7 @@ const HomePage = () => {
 
 	return (
 		<div className={styles.home_container}>
-			<Link to="/search">
+			<Link to="/companies">
 				<div className={styles.main_options}>
 					<div className={`${styles.glow_on_hover} ${styles.search_btn}`}>Search Companies</div>
 				</div>

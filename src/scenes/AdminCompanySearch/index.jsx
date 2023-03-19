@@ -14,36 +14,50 @@ const AdminCompanyPage = () => {
                     className={styles.tag_filter}
                     title={'Status'}>
                     <Tag isSelected={false}
-                         text={'Banned'}
-                         amount={1700}
+                        text={'Banned'}
+                        amount={1700}
                     />
                     <Tag isSelected={false}
-                         text={'Reported'}
-                         amount={1700}
+                        text={'Reported'}
+                        amount={1700}
                     />
                 </TagFilter>
                 <TagFilter
                     className={styles.tag_filter}
                     title={'Industries'}>
                     <Tag isSelected={false}
-                         text={'Digital marketing'}
-                         amount={17}
+                        text={'Digital marketing'}
+                        amount={17}
                     />
                 </TagFilter>
                 <TagFilter
                     className={styles.tag_filter}
                     title={'Technologies'}>
                     <Tag isSelected={false}
-                         text={'Python'}
-                         amount={7}
+                        text={'Python'}
+                        amount={7}
                     />
                 </TagFilter>
             </div>
             <div className={classNames(styles.vertical, styles.search_container)}>
-                <SearchField className={styles.search_margin}/>
+                <SearchField className={styles.search_margin} />
                 <AdminCompanyCard
                     typeOfRequest={'Test type of request'}
-                    companyName={'test companyName'}
+                    companyName={'SpaceX'}
+                    status={'test status'}
+                    industries={'test industries'}
+                    technologies={'test technologies'}
+                    image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmIOwOnuCEsJWQ-tRQ9G8yJsmkulH0-Ck8Jae58R5w&s'}
+                    details={'Our company is a leader of space industry. We welcome you to take a look at our impressive projects.'}
+                    onCommunicateClick={() => {
+                    }}
+                    onVerifyClick={() => {
+                    }}
+                    onDeclineClick={() => {
+                    }} />
+                <AdminCompanyCard
+                    typeOfRequest={'Test type of request'}
+                    companyName={'Tesla'}
                     status={'test status'}
                     industries={'test industries'}
                     technologies={'test technologies'}
@@ -54,21 +68,7 @@ const AdminCompanyPage = () => {
                     onVerifyClick={() => {
                     }}
                     onDeclineClick={() => {
-                    }}/>
-                <AdminCompanyCard
-                    typeOfRequest={'Test type of request'}
-                    companyName={'test companyName'}
-                    status={'test status'}
-                    industries={'test industries'}
-                    technologies={'test technologies'}
-                    image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmIOwOnuCEsJWQ-tRQ9G8yJsmkulH0-Ck8Jae58R5w&s'}
-                    details={'test details'}
-                    onCommunicateClick={() => {
-                    }}
-                    onVerifyClick={() => {
-                    }}
-                    onDeclineClick={() => {
-                    }}/>
+                    }} />
             </div>
         </div>
     );
