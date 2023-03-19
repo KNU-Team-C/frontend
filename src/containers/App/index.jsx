@@ -3,7 +3,6 @@ import Header from '../../components/Header';
 import {connect} from 'react-redux';
 import {Route, Router, Switch} from 'react-router-dom';
 import HomePage from '../../scenes/HomePage';
-import SearchPage from '../../scenes/SearchPage';
 import LandingPage from '../../scenes/LandingPage';
 import {history} from '../../helpers/history.helper';
 import {TOKEN_NAME} from "../../commons/constants";
@@ -20,7 +19,6 @@ const App = () => (
         <Switch>
             <Route exact path="/" component={() => localStorage.getItem(TOKEN_NAME) ? <HomePage/> : <LandingPage/>}/>
             <Route exact path="/home" component={HomePage}/>
-            <Route exact path="/search" component={SearchPage} />
             <Route exact path="/admin/requests" component={AdminRequestsPage} />
             <Route exact path="/admin/users" component={AdminUserPage} />
             <Route exact path="/admin/companies" component={AdminCompanyPage} />

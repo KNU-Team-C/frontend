@@ -10,20 +10,26 @@ const GenericCard = (props) => {
         image,
         infoItems,
         details,
-        controls
+        controls,
+        onCardClick,
     } = props;
+
+    console.log(onCardClick)
+
     return (
-        <div className={classNames(styles.vertical, styles.card)}>
+        <div className={classNames(styles.vertical, styles.card)} onClick={onCardClick}
+            style={onCardClick !== undefined ? { cursor: 'pointer' } : null}>
             {cardHeader}
             <div className={styles.horizontal}>
                 <div>
                     <img src={image} className={styles.request_image} alt={'card image'} />
                 </div>
                 <div className={styles.vertical}>
+                    {/* {getHeader()} */}
                     <div className={styles.item_header}>{itemHeader}</div>
                     {infoItems.map(item => (
                         <div key={item.title} className={styles.horizontal}>
-                            <div className={styles.request_point}>{item.title}</div>
+                            <div className={styles.request_point}>{item.title}:</div>
                             <div className={styles.default_text}>{item.content}</div>
                         </div>
                     ))}
@@ -45,6 +51,10 @@ const GenericCard = (props) => {
             </div>
         </div>
     );
+}
+
+GenericCard.defaultProps = {
+    controls: [],
 }
 
 export default GenericCard;

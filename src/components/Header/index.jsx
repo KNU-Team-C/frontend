@@ -21,7 +21,7 @@ const Header = () => {
                 <div className={styles.logo_text}>Optimum Portfolio</div>
             </div>
             <div className={styles.controls_container}>
-                <Link to="/search">
+                <Link to="/companies">
                     <div className={styles.item}>Companies</div>
                 </Link>
                 {renderControls() && <Link to="/signin">

@@ -1,8 +1,10 @@
 import React from 'react';
 import GenericCard from '../GenericCard';
+import {history} from '../../helpers/history.helper';
 
 const CompanyCard = (props) => {
 	const {
+		id,
 		companyName,
 		image,
 		status,
@@ -29,6 +31,7 @@ const CompanyCard = (props) => {
 			image={image}
 			infoItems={infoItems}
 			details={details}
+			onCardClick={() => history.push(`/company/${id}`)}
 		/>
 	);
 }
