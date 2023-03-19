@@ -41,8 +41,8 @@ const AdminCompanyCard = (props) => {
         text: 'Decline',
         className: styles.button_ban,
         onClick: onDeclineClick
-    }
-    ];
+    }];
+
     return (
         <GenericCard
             cardHeader={header}

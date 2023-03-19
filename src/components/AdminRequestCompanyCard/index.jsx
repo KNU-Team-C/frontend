@@ -4,15 +4,15 @@ import AdminCompanyCard from "../AdminCompanyCard";
 
 
 const AdminRequestCompanyCard = (props) => {
-    const {typeOfRequest} = props;
+    const { typeOfRequest } = props;
     return (
         <AdminCompanyCard {...props}
-                          header={
-                              <div className={styles.type_of_request_container}>
-                                  <div className={styles.type_of_request_title}>Type of Request:</div>
-                                  <div className={styles.type_of_request_text}>{typeOfRequest}</div>
-                              </div>
-                          }
+            header={
+                <div className={styles.type_of_request_container}>
+                    <div className={styles.type_of_request_title}>Type of Request:</div>
+                    <div className={styles.type_of_request_text}>{typeOfRequest}</div>
+                </div>
+            }
         />
     );
 }
