@@ -1,4 +1,5 @@
 import React from 'react';
+import {Input} from 'semantic-ui-react';
 import styles from './styles.module.sass';
 import classNames from "../../commons/classnames";
 
@@ -17,7 +18,7 @@ const TagFilter = (props) => {
                 <button className={styles.button_reset} onClick={onReset}>Reset</button>
             </div>
             <div className={classNames(styles.tags_border, styles.vertical)}>
-                <input type={"text"} placeholder={"Search..."} className={styles.search} onInput={onInput}/>
+                <Input placeholder={"Search..."} className={styles.search} onInput={onInput}/>
                 {children}
             </div>
         </div>

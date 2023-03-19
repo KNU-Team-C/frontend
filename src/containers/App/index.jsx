@@ -9,9 +9,10 @@ import {history} from '../../helpers/history.helper';
 import {TOKEN_NAME} from "../../commons/constants";
 import Footer from '../../components/Footer';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
-import AdminUserPage from "../../scenes/AdminUserSearch";
-import AdminCompanyPage from "../../scenes/AdminCompanySearch";
-import AdminRequestsPage from "../../scenes/AdminRequestsPage";
+import AdminUserPage from '../../scenes/AdminUserSearch';
+import AdminCompanyPage from '../../scenes/AdminCompanySearch';
+import AdminRequestsPage from '../../scenes/AdminRequestsPage';
+import CompaniesPage from '../../scenes/CompaniesPage';
 
 const App = () => (
     <Router history={history}>
@@ -23,6 +24,8 @@ const App = () => (
             <Route exact path="/admin/requests" component={AdminRequestsPage} />
             <Route exact path="/admin/users" component={AdminUserPage} />
             <Route exact path="/admin/companies" component={AdminCompanyPage} />
+            <Route exact path="/user/:id/companies" component={CompaniesPage} />
+            <Route exact path="/companies" component={CompaniesPage} />
             {/* <Route exact path="/user/me" component={UserPage}/> */}
         </Switch>
         <Footer/>

@@ -43,12 +43,12 @@ const AdminCompanyPage = () => {
                 <SearchField className={styles.search_margin}/>
                 <AdminCompanyCard
                     typeOfRequest={'Test type of request'}
-                    companyName={'test companyName'}
+                    companyName={'SpaceX'}
                     status={'test status'}
                     industries={'test industries'}
                     technologies={'test technologies'}
                     image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmIOwOnuCEsJWQ-tRQ9G8yJsmkulH0-Ck8Jae58R5w&s'}
-                    details={'test details'}
+                    details={'Our company is a leader of space industry. We welcome you to take a look at our impressive projects.'}
                     onCommunicateClick={() => {
                     }}
                     onVerifyClick={() => {
@@ -57,7 +57,7 @@ const AdminCompanyPage = () => {
                     }}/>
                 <AdminCompanyCard
                     typeOfRequest={'Test type of request'}
-                    companyName={'test companyName'}
+                    companyName={'Tesla'}
                     status={'test status'}
                     industries={'test industries'}
                     technologies={'test technologies'}

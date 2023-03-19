@@ -1,6 +1,5 @@
 @import 'src/styles/variables'
 
-
 .horizontal
   display: flex
   flex-direction: row
@@ -11,7 +10,8 @@
 
 .top_container
   justify-content: space-between
-  align-items: end
+  align-items: center
+  margin-bottom: 0.3rem
 
 .title_text
   font-family: inherit
@@ -23,7 +23,7 @@
 
 .button_reset
   font-family: inherit
-  font-size: 1.2em
+  font-size: 1.15em
   font-weight: 400
   color: $white
   background-color: $heliotrope
@@ -39,21 +39,18 @@
 .tags_border
   padding-left: 15px
   padding-right: 15px
-  border-style: solid
-  border-color: $black
-  border-radius: 10px
-  border-width: 1px
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.283) 0px 0px 0px 1px
+  border-radius: 0.3rem
 
 .search
-  font-family: inherit
-  font-size: 1.2em
-  font-weight: 400
-  color: $black
+  font-size: 1.1em!important
   width: 100%
-  margin-top: 7px
-  margin-bottom: 11px
-  padding: 5px 13px 6px
-  border-style: solid
-  border-width: 2px
-  border-radius: 15px
-  border-color: $black
+  margin-top: 0.6rem
+  margin-bottom: 1.3rem
+  input
+    border: none!important
+    border-bottom: 0.1rem solid $heliotrope-light!important
+    border-radius: 0!important
+    padding-bottom: 0.45rem!important
+    padding-right: 0.2rem!important
+    padding-left: 0.2rem!important
