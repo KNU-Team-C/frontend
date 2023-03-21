@@ -12,6 +12,9 @@ import AdminUserPage from '../../scenes/AdminUserSearch';
 import AdminCompanyPage from '../../scenes/AdminCompanySearch';
 import AdminRequestsPage from '../../scenes/AdminRequestsPage';
 import CompaniesPage from '../../scenes/CompaniesPage';
+import SignInPage from '../../scenes/SignInPage';
+import SignUpPage from '../../scenes/SignUpPage';
+import SignUpContinuePage from '../../scenes/SignUpContinuePage';
 
 const App = () => (
     <Router history={history}>
@@ -24,6 +27,9 @@ const App = () => (
             <Route exact path="/admin/companies" component={AdminCompanyPage} />
             <Route exact path="/user/:id/companies" component={CompaniesPage} />
             <Route exact path="/companies" component={CompaniesPage} />
+            <Route exact path="/signin" component={SignInPage} />
+            <Route exact path="/signup" component={SignUpPage} />
+            <Route exact path="/signup/continue" component={SignUpContinuePage} />
             {/* <Route exact path="/user/me" component={UserPage}/> */}
         </Switch>
         <Footer/>
