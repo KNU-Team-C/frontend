@@ -1,0 +1,116 @@
+@import 'src/styles/variables'
+
+
+
+
+.left_column
+  display: flex
+  flex-direction: column 
+  height:100%
+  margin-right:10px
+  width: 40vw
+  
+  
+@media (max-width: 768px)
+  .left_column
+    display: flex
+    flex-direction: column
+    width: 90vw
+
+.centered
+  display: flex
+  flex-direction: column 
+  justify-content: center
+  align-items: center
+
+.border_main
+  border: 2px solid $black
+  border-radius: 10px
+
+.search_margin
+  margin-bottom: 7px
+  margin-top: 7px
+
+
+
+  
+
+.search_button
+  padding: 5px 20px 7px 18px
+  height: border-box
+  width: fit-content
+  background-color: transparent
+
+.ico_view
+  height: 2.5em
+  width: 2.5em
+  border-radius: 10px
+  margin-right: 5px
+  cursor: pointer
+  
+
+.info_row_input
+  resize: none
+  word-wrap: break-word
+  overflow-wrap: break-word
+  height: 40px
+  border-radius: 10px
+  width: 100%
+  margin-right: 5px
+  background-color: $dodger-blue
+
+  &:disabled
+    background-color:$white
+
+.center_text  
+  text-align: center
+  
+  
+  text
+    margin:0
+
+.description_input
+  min-height: 100px
+
+.info_row  
+  margin-top: 5px
+  border-color: $black
+  border-style: solid
+  display: flex
+  items-align: center
+
+
+.company_img
+  min-width: 80px
+  min-height: 80px
+  border-radius: 10px
+
+.custom_file_input
+  min-width: 40px
+  min-height: 20px
+  
+  position: relative
+  display: inline-block
+  
+  padding: 6px 12px
+  margin-top: 5px
+  cursor: pointer
+  
+  text-align: center
+  
+  input
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    opacity: 0
+    cursor: pointer
+  
+  span    
+    cursor: pointer
+  
+  &:hover
+    background-color: $dodger-blue
+    
+  
