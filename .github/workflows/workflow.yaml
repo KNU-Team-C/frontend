@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - "feature/39-integrate-auth"
-    
+
 env:
   IMAGE_TAG: ${{ github.sha }}
 
@@ -11,6 +11,8 @@ jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_SERVER_URL: ${{ vars.BACKEND_URL }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -23,8 +25,6 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v4
-        env:
-          REACT_APP_SERVER_URL: ${{ vars.BACKEND_URL }}
         with:
           context: .
           file: ./infrastructure/Dockerfile
@@ -46,12 +46,12 @@ jobs:
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
-      
+
       - name: Terraform init
         run: terraform init
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-      
+
       - name: Terraform format
         run: terraform fmt -check
 
@@ -59,10 +59,8 @@ jobs:
         run: terraform plan
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-      
+
       - name: Terraform apply
         run: terraform apply -auto-approve
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-
-
