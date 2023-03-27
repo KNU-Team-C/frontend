@@ -47,6 +47,15 @@ resource "google_cloud_run_service" "frontend_server" {
     spec {
       containers {
         image = "teamcknu/frontend:${var.docker_tag}"
+        env {
+          name = "REACT_APP_SERVER_URL"
+          value_from {
+            secret_key_ref {
+              name = "companies-backend-url"
+              key  = "latest"
+            }
+          }
+        }
       }
     }
   }

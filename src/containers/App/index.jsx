@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../components/Header';
+import Header from './Header';
 import {connect} from 'react-redux';
 import {Route, Router, Switch} from 'react-router-dom';
 import HomePage from '../../scenes/HomePage';
@@ -15,7 +15,6 @@ import CompaniesPage from '../../scenes/CompaniesPage';
 import CompanyEditPage from '../../scenes/CompanyEditPage';
 import SignInPage from '../../scenes/SignInPage';
 import SignUpPage from '../../scenes/SignUpPage';
-import SignUpContinuePage from '../../scenes/SignUpContinuePage';
 
 
 const App = () => (
@@ -32,7 +31,6 @@ const App = () => (
             <Route exact path="/user/company" component={CompanyEditPage}/>
             <Route exact path="/signin" component={SignInPage} />
             <Route exact path="/signup" component={SignUpPage} />
-            <Route exact path="/signup/continue" component={SignUpContinuePage} />
 
             {/* <Route exact path="/user/me" component={UserPage}/> */}
         </Switch>

@@ -40,9 +40,6 @@ const HomePage = () => {
 							</ul>
 						</Card.Description>
 					</Card.Content>
-					<Card.Content extra>
-						<div className={styles.card_btn}>Go to Chats</div>
-					</Card.Content>
 				</Card>
 				<Card color='orange' href="/user-sets">
 					<img src={setsImage} className={styles.card_image} />
@@ -60,12 +57,12 @@ const HomePage = () => {
 				<Card color='yellow' href="/user-companies">
 					<img src={companiesImage} className={styles.card_image} />
 					<Card.Content>
-						<Card.Header>Chats</Card.Header>
+						<Card.Header>Own Companies</Card.Header>
 						<Card.Description>
 							<ul className={styles.card_desctiption}>
-								<li>Personalize your portfolio</li>
-								<li>Share set of projects by link</li>
-								<li>Update projects at any time</li>
+								<li>Manage your companies</li>
+								<li>Group company&apos;s projects and share them</li>
+								<li>Communicate with potential customers</li>
 							</ul>
 						</Card.Description>
 					</Card.Content>

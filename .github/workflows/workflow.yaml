@@ -2,7 +2,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - "main"
+      - "feature/39-integrate-auth"
     
 env:
   IMAGE_TAG: ${{ github.sha }}
