@@ -1,7 +1,7 @@
 import * as queryString from 'query-string';
 import {TOKEN_NAME} from '../commons/constants';
 
-export const serverAddress = 'http://localhost:5050'; //todo
+export const serverAddress = process.env.REACT_APP_SERVER_URL || 'https://backend-server-dev-jco3c2ef2q-lm.a.run.app';
 
 function getFetchUrl(args) {
     return serverAddress + args.endpoint + (args.query ? `?${queryString.stringify(args.query)}` : '');
@@ -31,6 +31,9 @@ function getFetchArgs(args) {
             throw new Error('GET request does not support request body.');
         }
         body = JSON.stringify(args.request);
+    } else if (args.form) {
+        body = args.form;
+        headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
     return {
         method: args.type,
