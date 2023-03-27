@@ -1,7 +1,7 @@
 import * as queryString from 'query-string';
 import {TOKEN_NAME} from '../commons/constants';
 
-export const serverAddress = process.env.REACT_APP_SERVER_URL;
+export const serverAddress = process.env.REACT_APP_SERVER_URL || 'https://backend-server-dev-jco3c2ef2q-lm.a.run.app';
 
 function getFetchUrl(args) {
     return serverAddress + args.endpoint + (args.query ? `?${queryString.stringify(args.query)}` : '');

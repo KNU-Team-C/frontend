@@ -11,8 +11,6 @@ jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
-    env:
-      REACT_APP_SERVER_URL: ${{ vars.BACKEND_URL }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
