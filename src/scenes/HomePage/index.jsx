@@ -41,7 +41,7 @@ const HomePage = () => {
 						</Card.Description>
 					</Card.Content>
 				</Card>
-				<Card color='orange' href="/user-sets">
+				<Card color='orange' href="/user/sets">
 					<img src={setsImage} className={styles.card_image} />
 					<Card.Content>
 						<Card.Header>Sets</Card.Header>
@@ -54,7 +54,7 @@ const HomePage = () => {
 						</Card.Description>
 					</Card.Content>
 				</Card>
-				<Card color='yellow' href="/user-companies">
+				<Card color='yellow' href="/user/companies">
 					<img src={companiesImage} className={styles.card_image} />
 					<Card.Content>
 						<Card.Header>Own Companies</Card.Header>

@@ -15,7 +15,7 @@ function getFetchArgs(args) {
     }
     const token = localStorage.getItem(TOKEN_NAME);
     if (token && !args.skipAuthorization) {
-        headers.Authorization = `Bearer ${token}`;
+        headers['x-access-tokens'] = token;
     }
     let body;
     if (args.attachment) {

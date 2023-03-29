@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.module.sass';
 import classNames from "../../commons/classnames";
+import placeholder from '../../assets/image-placeholder.png';
 
 
 const GenericCard = (props) => {
@@ -22,10 +23,9 @@ const GenericCard = (props) => {
             {cardHeader}
             <div className={styles.horizontal}>
                 <div>
-                    <img src={image} className={styles.request_image} alt={'card image'} />
+                    <img src={image || placeholder} className={styles.request_image} alt={'card image'} />
                 </div>
                 <div className={styles.vertical}>
-                    {/* {getHeader()} */}
                     <div className={styles.item_header}>{itemHeader}</div>
                     {infoItems.map(item => (
                         <div key={item.title} className={styles.horizontal}>
