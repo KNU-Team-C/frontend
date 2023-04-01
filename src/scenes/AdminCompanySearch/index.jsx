@@ -22,12 +22,6 @@ const AdminCompanyPage = ({
                               getTechnologies,
                           }) => {
 
-    useEffect(() => {
-        getCompanies();
-        getIndustries();
-        getTechnologies();
-    }, []);
-
     const [searchText, setSearchText] = useState(''); // input text before clicking on search
     const [currentText, setCurrentText] = useState(searchText); // text with which the results are filtered
     const [bannedSelected, setBannedSelected] = useState(false);
@@ -45,6 +39,12 @@ const AdminCompanyPage = ({
             technologies: selectedTechnologies
         });
     }
+
+    useEffect(() => {
+        searchCompanies();
+        getIndustries();
+        getTechnologies();
+    }, []);
 
     const addOrRemoveIfPresent = (id, values) => {
         return values.includes(id) ? [...values.filter(v => v !== id)] : [...values, id];
@@ -205,12 +205,12 @@ const AdminCompanyPage = ({
 }
 
 const mapStateToProps = (state) => ({
-    companies: state.authCompaniesData.companies,
-    industries: state.authCompaniesData.industries,
-    technologies: state.authCompaniesData.technologies,
-    companiesLoading: state.authCompaniesData.companiesLoading,
-    industriesLoading: state.authCompaniesData.industriesLoading,
-    technologiesLoading: state.authCompaniesData.technologiesLoading,
+    companies: state.adminCompaniesData.companies,
+    industries: state.adminCompaniesData.industries,
+    technologies: state.adminCompaniesData.technologies,
+    companiesLoading: state.adminCompaniesData.companiesLoading,
+    industriesLoading: state.adminCompaniesData.industriesLoading,
+    technologiesLoading: state.adminCompaniesData.technologiesLoading,
 });
 
 const mapDispatchToProps = {

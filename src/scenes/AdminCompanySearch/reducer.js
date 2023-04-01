@@ -9,7 +9,7 @@ const initialState = {
 	technologies: [],
 }
 
-const authCompaniesData = (state = initialState, action) => {
+const adminCompaniesData = (state = initialState, action) => {
 	switch (action.type) {
 		case getAdminCompaniesRoutine.SUCCESS:
 			return {
@@ -68,4 +68,4 @@ const authCompaniesData = (state = initialState, action) => {
 	}
 }
 
-export default authCompaniesData;
+export default adminCompaniesData;
