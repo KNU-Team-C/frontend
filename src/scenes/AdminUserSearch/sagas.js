@@ -18,7 +18,7 @@ function* watchGetUsers() {
     yield takeEvery(getAdminUsersRoutine.TRIGGER, getUsers);
 }
 
-export default function* authUsersSagas() {
+export default function* adminUsersSagas() {
     yield all([
         watchGetUsers(),
     ]);

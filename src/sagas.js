@@ -3,7 +3,8 @@ import signInSagas from './scenes/SignInPage/sagas';
 import signUpSagas from './scenes/SignUpPage/sagas';
 import companiesSagas from './scenes/CompaniesPage/sagas';
 import authCompaniesSagas from "./scenes/AdminCompanySearch/sagas";
-import authUsersSagas from "./scenes/AdminUserSearch/sagas";
+import adminUsersSagas from "./scenes/AdminUserSearch/sagas";
+import adminRequestsSagas from "./scenes/AdminRequestsPage/sagas";
 
 export default function* rootSaga() {
     yield all([
@@ -11,6 +12,7 @@ export default function* rootSaga() {
         signUpSagas(),
         companiesSagas(),
         authCompaniesSagas(),
-        authUsersSagas(),
+        adminUsersSagas(),
+        adminRequestsSagas(),
     ]);
 }

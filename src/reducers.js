@@ -4,6 +4,7 @@ import authData from './scenes/SignInPage/reducer';
 import companiesData from './scenes/CompaniesPage/reducer';
 import adminCompaniesData from "./scenes/AdminCompanySearch/reducer";
 import adminUsersData from "./scenes/AdminUserSearch/reducer";
+import adminRequestsData from "./scenes/AdminRequestsPage/reducer";
 // import home from './scenes/HomePage/reducer';
 
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
     companiesData,
     adminCompaniesData,
     adminUsersData,
+    adminRequestsData,
 });
