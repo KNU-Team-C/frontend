@@ -1,0 +1,48 @@
+@import 'src/styles/variables'
+
+$sender-color: $yellow
+$receiver-color: $dodger-blue
+$chat-message-padding: 10px
+$chat-message-border-radius: 10px
+$chat-message-max-width: 70%
+$message-time-color: $grey1
+
+.chatMessageWrapper 
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  margin-bottom: $chat-message-padding
+
+  &.isMine 
+    align-items: flex-end
+
+
+  .chatMessage 
+    max-width: $chat-message-max-width
+    padding: $chat-message-padding
+    border-radius: $chat-message-border-radius
+    font-size: 16px
+    word-wrap: break-word
+
+    &.isMine 
+      background-color: $sender-color
+      color: $black
+  
+
+    &:not(.isMine) 
+      background-color: $receiver-color
+      color: $white
+  
+
+
+  .chatMessageInfoWrapper 
+    display: flex
+    justify-content: flex-end
+    margin-top: 5px
+
+    .chatMessageTime 
+      font-size: 12px
+      color: $message-time-color
+  
+
+
