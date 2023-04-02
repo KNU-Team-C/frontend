@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles.module.sass';
+import ChatInfo from '../../components/ChatComponents/ChatInfo';
 
 function ChatPage() {
     return (
@@ -7,7 +8,29 @@ function ChatPage() {
             <div className={styles.chatContainer}>
                 <div className={styles.chatsList}>
                     <div className={styles.chatsListHeader}>Chats</div>
-                    <div className={styles.chatItems}></div>
+                    <div className={styles.chatItems}>
+                        <ChatInfo user={
+                            {
+                                name: "John Doe",
+                                icon: "https://cdn-icons-png.flaticon.com/512/3/3729.png",
+                                lastMessage: "Hello, how are you?"
+                            }
+                        }></ChatInfo>
+                        <ChatInfo user={
+                            {
+                                name: "John Doe",
+                                icon: "https://cdn-icons-png.flaticon.com/512/3/3729.png",
+                                lastMessage: "Hello, how are you?"
+                            }
+                        }></ChatInfo>
+                        <ChatInfo user={
+                            {
+                                name: "John Doe",
+                                icon: "https://cdn-icons-png.flaticon.com/512/3/3729.png",
+                                lastMessage: "Hello, how are you?"
+                            }
+                        }></ChatInfo>
+                    </div>
                 </div>
                 <div className={styles.chatMessages}>
                     <div className={styles.chatMessagesHeader}>Name</div>
