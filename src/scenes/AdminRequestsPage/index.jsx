@@ -63,8 +63,8 @@ const AdminRequestsPage = ({
                         setReportsSelected(false);
                         performGet({
                             query: currentText,
-                            banned: false,
-                            reported: false,
+                            verification: false,
+                            reports: false,
                         });
                     }}
                 >
@@ -77,7 +77,7 @@ const AdminRequestsPage = ({
                             performGet({
                                 query: currentText,
                                 verification: !verificationSelected,
-                                reported: reportsSelected,
+                                reports: reportsSelected,
                             });
                         }}
                     />
@@ -89,8 +89,8 @@ const AdminRequestsPage = ({
                             setReportsSelected(!reportsSelected);
                             performGet({
                                 query: currentText,
-                                banned: verificationSelected,
-                                reported: !reportsSelected,
+                                verification: verificationSelected,
+                                reports: !reportsSelected,
                             });
                         }}
                     />
@@ -105,7 +105,7 @@ const AdminRequestsPage = ({
                           }}
                           className={styles.tabs}
                           variant="fullWidth"
-                          scrollButtons="false">
+                          scrollButtons={false}>
                         <Tab label="Users" wrapped/>
                         <Tab label="Companies" wrapped/>
                     </Tabs>
@@ -123,7 +123,7 @@ const AdminRequestsPage = ({
                 {users.map(u => (
                     <AdminRequestUserCard
                         id={u.id}
-                        typeOfRequest={'Test type of request'}
+                        typeOfRequest={'Reported'}
                         username={u.first_name + ' ' + u.last_name}
                         status={u.status}
                         image={u.ava_url}
@@ -132,15 +132,17 @@ const AdminRequestsPage = ({
                     />
                 ))}
 
-                {companies.map(u => (
+                {companies.map(c => (
                     <AdminRequestCompanyCard
-                        id={u.id}
-                        typeOfRequest={'Test type of request'}
-                        username={u.first_name + ' ' + u.last_name}
-                        status={u.status}
-                        image={u.ava_url}
-                        details={u.description}
-                        key={u.id}
+                        key={c.id}
+                        id={c.id}
+                        companyName={c.name}
+                        image={c.ava_url}
+                        typeOfRequest={c.isVerified ? 'Reported' : 'Verification request'}
+                        status={c.isVerified ? 'Verified' : 'Not verified'}
+                        industries={c.industries}
+                        technologies={c.technologies}
+                        details={c.description}
                     />
                 ))}
             </div>
