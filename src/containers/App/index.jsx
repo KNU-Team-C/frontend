@@ -15,6 +15,8 @@ import CompaniesPage from '../../scenes/CompaniesPage';
 import CompanyEditPage from '../../scenes/CompanyEditPage';
 import SignInPage from '../../scenes/SignInPage';
 import SignUpPage from '../../scenes/SignUpPage';
+import PageNotFound from '../../scenes/PageNotFound';
+import ChatsPage from "../../scenes/ChatsPage";
 
 
 const App = () => (
@@ -31,6 +33,8 @@ const App = () => (
             <Route exact path="/user/company" component={CompanyEditPage} />
             <Route exact path="/signin" component={SignInPage} />
             <Route exact path="/signup" component={SignUpPage} />
+            <Route exact path="/chats" component={ChatsPage} />
+            <Route component={PageNotFound} />
 
             {/* <Route exact path="/user/me" component={UserPage}/> */}
         </Switch>
