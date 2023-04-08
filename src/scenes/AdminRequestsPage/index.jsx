@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles.module.sass';
 import AdminRequestCompanyCard from "../../components/AdminRequestCompanyCard";
 import AdminRequestUserCard from "../../components/AdminRequestUserCard";
@@ -6,56 +6,162 @@ import TagFilter from "../../components/TagFilter";
 import Tag from "../../components/Tag";
 import SearchField from "../../components/SearchField";
 import classNames from "../../commons/classnames";
-import Checkbox from "../../components/Checkbox";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import {connect} from "react-redux";
+import {Loader} from "semantic-ui-react";
+import emptyListImage from "../../assets/empty-list.png";
+import {getAdminRequestsCompaniesRoutine, getAdminRequestsUsersRoutine} from "./routines";
 
-const AdminRequestsPage = () => {
+const AdminRequestsPage = ({
+                               companies,
+                               companiesLoading,
+                               getCompanies,
+                               usersLoading,
+                               users,
+                               getUsers,
+                           }) => {
+
+    const [searchText, setSearchText] = useState(''); // input text before clicking on search
+    const [currentText, setCurrentText] = useState(searchText); // text with which the results are filtered
+    const [verificationSelected, setVerificationSelected] = useState(false);
+    const [reportsSelected, setReportsSelected] = useState(false);
+    const [tabSelected, setTabSelected] = useState(0);
+    const performSearch = (tab = tabSelected) => {
+        setCurrentText(searchText);
+        performGet({
+            query: searchText,
+            verification: verificationSelected,
+            reports: reportsSelected,
+        }, tab);
+    }
+
+    const performGet = (args, tab = tabSelected) => {
+        switch (tab) {
+            case 0:
+                getUsers(args)
+                break
+            case 1:
+                getCompanies(args)
+                break
+        }
+
+    }
+
+    useEffect(() => {
+        performSearch();
+    }, []);
+
     return (
         <div className={styles.home_container}>
             <div className={classNames(styles.vertical, styles.filters)}>
                 <TagFilter
                     className={styles.tag_filter}
-                    title={'Type'}>
-                    <Tag isSelected={false}
-                         text={'Verification'}
-                         amount={1700}
+                    title={'Type'}
+                    onReset={() => {
+                        setVerificationSelected(false);
+                        setReportsSelected(false);
+                        performGet({
+                            query: currentText,
+                            verification: false,
+                            reports: false,
+                        });
+                    }}
+                >
+                    <Tag
+                        text={'Verification'}
+                        amount={''}
+                        isSelected={verificationSelected}
+                        onSelectionChange={() => {
+                            setVerificationSelected(!verificationSelected);
+                            performGet({
+                                query: currentText,
+                                verification: !verificationSelected,
+                                reports: reportsSelected,
+                            });
+                        }}
                     />
-                    <Tag isSelected={false}
-                         text={'Reports'}
-                         amount={1710}
+                    <Tag
+                        text={'Reports'}
+                        amount={''}
+                        isSelected={reportsSelected}
+                        onSelectionChange={() => {
+                            setReportsSelected(!reportsSelected);
+                            performGet({
+                                query: currentText,
+                                verification: verificationSelected,
+                                reports: !reportsSelected,
+                            });
+                        }}
                     />
                 </TagFilter>
             </div>
             <div className={classNames(styles.vertical, styles.search_container)}>
                 <div className={classNames(styles.horizontal, styles.search_field_container)}>
-                    <Checkbox label={"Users"} className={styles.checkbox}/>
-                    <Checkbox label={"Companies"} className={styles.checkbox}/>
-                    <SearchField className={styles.search_margin}/>
+                    <Tabs value={tabSelected}
+                          onChange={(event, newValue) => {
+                              setTabSelected(newValue);
+                              performSearch(newValue)
+                          }}
+                          className={styles.tabs}
+                          variant="fullWidth"
+                          scrollButtons={false}>
+                        <Tab label="Users" wrapped/>
+                        <Tab label="Companies" wrapped/>
+                    </Tabs>
+                    <SearchField
+                        className={styles.search_margin}
+                        onInput={(e) => setSearchText(e.target.value)}
+                        onSearchClick={() => performSearch()}/>
                 </div>
-                <AdminRequestCompanyCard
-                    typeOfRequest={'Test type of request'}
-                    companyName={'test companyName'}
-                    status={'test status'}
-                    industries={'test industries'}
-                    technologies={'test technologies'}
-                    image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmIOwOnuCEsJWQ-tRQ9G8yJsmkulH0-Ck8Jae58R5w&s'}
-                    details={'test details'}
-                    onCommunicateClick={() => {
-                    }}
-                    onVerifyClick={() => {
-                    }}
-                    onDeclineClick={() => {
-                    }}/>
-                <AdminRequestUserCard
-                    typeOfRequest={'Test type of request'}
-                    username={'Test username'}
-                    status={'test status'}
-                    image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmIOwOnuCEsJWQ-tRQ9G8yJsmkulH0-Ck8Jae58R5w&s'}
-                    company={'test company'}
-                    details={'test details'}/>
+                <Loader active={usersLoading || companiesLoading} inline/>
+                {!usersLoading && !companiesLoading && (users === undefined || users.length === 0) && (companies === undefined || companies.length === 0) && <>
+                    <img src={emptyListImage} className={styles.placeholder_image}/>
+                    <p className={styles.placeholder_text}>No results found ...</p>
+                </>}
+
+                {users.map(u => (
+                    <AdminRequestUserCard
+                        id={u.id}
+                        typeOfRequest={'Reported'}
+                        username={u.first_name + ' ' + u.last_name}
+                        status={u.status}
+                        image={u.ava_url}
+                        details={u.description}
+                        key={u.id}
+                    />
+                ))}
+
+                {companies.map(c => (
+                    <AdminRequestCompanyCard
+                        key={c.id}
+                        id={c.id}
+                        companyName={c.name}
+                        image={c.ava_url}
+                        typeOfRequest={c.isVerified ? 'Reported' : 'Verification request'}
+                        status={c.isVerified ? 'Verified' : 'Not verified'}
+                        industries={c.industries}
+                        technologies={c.technologies}
+                        details={c.description}
+                    />
+                ))}
             </div>
         </div>
     );
 }
 
 
-export default AdminRequestsPage;
+const mapStateToProps = (state) => ({
+    companies: state.adminRequestsData.companies,
+    companiesLoading: state.adminRequestsData.companiesLoading,
+    users: state.adminRequestsData.users,
+    usersLoading: state.adminRequestsData.usersLoading,
+});
+
+const mapDispatchToProps = {
+    getUsers: getAdminRequestsUsersRoutine,
+    getCompanies: getAdminRequestsCompaniesRoutine,
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminRequestsPage);
