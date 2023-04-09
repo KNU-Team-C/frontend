@@ -17,6 +17,7 @@ import SignInPage from '../../scenes/SignInPage';
 import SignUpPage from '../../scenes/SignUpPage';
 import PageNotFound from '../../scenes/PageNotFound';
 import ChatsPage from "../../scenes/ChatsPage";
+import CompanyPage from '../../scenes/CompanyPage';
 
 
 const App = () => (
@@ -30,6 +31,7 @@ const App = () => (
             <Route exact path="/admin/companies" component={AdminCompanyPage} />
             <Route exact path="/user/companies" component={() => <CompaniesPage own={true} />} />
             <Route exact path="/companies" component={CompaniesPage} />
+            <Route exact path="/company/:id" component={CompanyPage} />
             <Route exact path="/user/company" component={CompanyEditPage} />
             <Route exact path="/signin" component={SignInPage} />
             <Route exact path="/signup" component={SignUpPage} />
