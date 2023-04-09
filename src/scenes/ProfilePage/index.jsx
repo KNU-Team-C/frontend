@@ -8,6 +8,7 @@ import placeholder from "../../assets/image-placeholder.png";
 
 const ProfilePage = ({
                          own,
+                         id,
                          profile,
                          profileLoading,
                          editLoading,
@@ -16,7 +17,7 @@ const ProfilePage = ({
                      }) => {
 
     useEffect(() => {
-        getProfile({own});
+        getProfile({own, id});
     }, []);
 
     const [syncedProfile, setSyncedProfile] = useState({});
@@ -56,6 +57,7 @@ const ProfilePage = ({
         })
     }
     const makeEditRequest = () => {
+        console.log(currentProfile)
         editProfile(currentProfile)
     }
 
