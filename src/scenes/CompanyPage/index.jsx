@@ -9,6 +9,7 @@ import classNames from '../../commons/classnames';
 import mailIco from '../../assets/mail_ico.png';
 import phoneIco from '../../assets/phone_ico.png';
 import { validate, emailRegex } from '../../helpers/validation.helper';
+import { history } from '../../helpers/history.helper';
 import { toastr } from 'react-redux-toastr';
 
 const CompanyPage = ({
@@ -19,7 +20,7 @@ const CompanyPage = ({
 }) => {
 
 	const { id } = useParams();
-	const [edit, setEdit] = useState(true);
+	const [edit, setEdit] = useState(false);
 	const [description, setDescription] = useState(company.description);
 	const [name, setName] = useState(company.name);
 	const [location, setLocation] = useState(company.location);
@@ -51,7 +52,7 @@ const CompanyPage = ({
 			toastr.error('Invalid email', 'Please make sure that the provided email is valid');
 			return false;
 		}
-		modifyCompany({id: company.id, name, description, address, location, email, phoneNumber});
+		modifyCompany({ id: company.id, name, description, address, location, email, phoneNumber });
 		setEdit(false);
 	}
 
@@ -148,6 +149,7 @@ const CompanyPage = ({
 							<button className={styles.btn} onClick={() => save()}>Save</button>}
 						{ownCompany && edit &&
 							<button className={styles.btn_reverted} onClick={() => cancel()}>Cancel</button>}
+						<button className={styles.btn} onClick={() => history.push(`/company/${id}/projects`)}>View Projects</button>
 					</div>
 				</div>
 

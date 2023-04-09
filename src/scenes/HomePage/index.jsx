@@ -41,15 +41,15 @@ const HomePage = () => {
 						</Card.Description>
 					</Card.Content>
 				</Card>
-				<Card color='orange' href="/user/portfolios">
+				<Card color='orange' href="/projects">
 					<img src={setsImage} className={styles.card_image} />
 					<Card.Content>
-						<Card.Header>Portfolios</Card.Header>
+						<Card.Header>Projects</Card.Header>
 						<Card.Description>
 							<ul className={styles.card_desctiption}>
-								<li>Personalize your portfolios</li>
-								<li>Share set of projects by link</li>
-								<li>Update projects at any time</li>
+								<li>Explore numerous projects</li>
+								<li>Look for inspiration or contact companies for details</li>
+								<li>All projects gathered in one place</li>
 							</ul>
 						</Card.Description>
 					</Card.Content>
