@@ -1,4 +1,5 @@
 import * as queryString from 'query-string';
+import { history } from './history.helper';
 import {TOKEN_NAME} from '../commons/constants';
 
 export const serverAddress = process.env.REACT_APP_SERVER_URL || 'https://backend-server-dev-jco3c2ef2q-lm.a.run.app';
@@ -44,7 +45,9 @@ function getFetchArgs(args) {
 }
 
 export async function throwIfResponseFailed(res) {
-    if (!res.ok) {
+    if (res.status === 401) {
+        history.push('/signin');
+    } else if (!res.ok) {
         let parsedException = 'Something went wrong with request!';
         try {
             parsedException = await res.json();

@@ -6,7 +6,8 @@ import adminCompaniesData from "./scenes/AdminCompanySearch/reducer";
 import adminUsersData from "./scenes/AdminUserSearch/reducer";
 import adminRequestsData from "./scenes/AdminRequestsPage/reducer";
 import profileData from "./scenes/ProfilePage/reducer";
-// import home from './scenes/HomePage/reducer';
+import companyData from "./scenes/CompanyPage/reducer";
+import projectsData from "./scenes/ProjectsPage/reducer";
 
 export default combineReducers({
     toastr,
@@ -15,5 +16,7 @@ export default combineReducers({
     adminCompaniesData,
     adminUsersData,
     adminRequestsData,
+    companyData,
+    projectsData,
     profileData,
 });

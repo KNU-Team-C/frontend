@@ -4,27 +4,26 @@ import TagFilter from '../../components/TagFilter';
 import Tag from '../../components/Tag';
 import SearchField from '../../components/SearchField';
 import styles from './styles.module.sass';
-import CompanyCard from '../../components/CompanyCard';
 import classNames from '../../commons/classnames';
 import emptyListImage from '../../assets/empty-list.png';
 import { connect } from 'react-redux';
-import { getCompaniesRoutine, getIndustriesRoutine, getTechnologiesRoutine } from './routines';
+import { getProjectsRoutine } from './routines';
+import { getTechnologiesRoutine, getIndustriesRoutine } from '../CompaniesPage/routines';
+import ProjectCard from '../../components/ProjectCard';
 
-const CompaniesPage = ({
-	own,
-	companiesLoading,
+const ProjectsPage = ({
 	technologiesLoading,
 	industriesLoading,
-	companies,
 	industries,
 	technologies,
-	getCompanies,
 	getIndustries,
 	getTechnologies,
+	projects,
+	projectsLoading,
+	getProjects
 }) => {
-
 	useEffect(() => {
-		getCompanies({ own });
+		getProjects({});
 		getIndustries();
 		getTechnologies();
 	}, []);
@@ -37,10 +36,9 @@ const CompaniesPage = ({
 	console.log('INDUSTRIES', selectedIndustries);
 	console.log('TECHNOLOGIES', selectedTechnologies);
 
-	const searchCompanies = () => {
+	const searchProjects = () => {
 		setCurrentText(searchText);
-		getCompanies({
-			own,
+		getProjects({
 			query: searchText,
 			industries: selectedIndustries,
 			technologies: selectedTechnologies
@@ -52,18 +50,17 @@ const CompaniesPage = ({
 	}
 
 	return (
-		<div className={styles.companies_container}>
-			{own && <button className={styles.create_company_btn}>+</button>}
+		<div className={styles.projects_container}>
 			<div className={classNames(styles.vertical, styles.filters)}>
 				<TagFilter
 					className={styles.tag_filter}
 					title={'Industries'}
 					onReset={() => {
 						setSelectedIndustries([]);
-						getCompanies({ own, industries: [], selectedTechnologies, query: currentText });
+						getProjects({ industries: [], selectedTechnologies, query: currentText });
 					}}
 					onInput={(e) => {
-						getIndustries({ query: e.target.value });
+						getProjects({ query: e.target.value });
 					}}
 				>
 					<Loader active={industriesLoading} inline />
@@ -73,7 +70,7 @@ const CompaniesPage = ({
 							onSelectionChange={() => {
 								const ids = addOrRemoveIfPresent(ind.id, selectedIndustries);
 								setSelectedIndustries(ids);
-								getCompanies({ own, query: currentText, industries: ids, technologies: selectedTechnologies });
+								getProjects({ query: currentText, industries: ids, technologies: selectedTechnologies });
 							}}
 							text={ind.name}
 							amount={''}
@@ -85,7 +82,7 @@ const CompaniesPage = ({
 					title={'Technologies'}
 					onReset={() => {
 						setSelectedTechnologies([]);
-						getCompanies({ own, industries: selectedIndustries, technologies: [], query: currentText });
+						getProjects({ industries: selectedIndustries, technologies: [], query: currentText });
 					}}
 					onInput={(e) => {
 						getTechnologies({ query: e.target.value });
@@ -97,7 +94,7 @@ const CompaniesPage = ({
 							onSelectionChange={() => {
 								const ids = addOrRemoveIfPresent(tech.id, selectedTechnologies);
 								setSelectedTechnologies(ids);
-								getCompanies({ own, query: currentText, industries: selectedIndustries, technologies: ids });
+								getProjects({ query: currentText, industries: selectedIndustries, technologies: ids });
 							}}
 							text={tech.name}
 							amount={''}
@@ -109,22 +106,22 @@ const CompaniesPage = ({
 				<SearchField
 					className={styles.search_margin}
 					onInput={(e) => setSearchText(e.target.value)}
-					onSearchClick={() => searchCompanies()} />
-				<Loader active={companiesLoading} inline />
-				{!companiesLoading && companies.length === 0 && <>
-					<img src={emptyListImage} className={styles.placeholder_image} /> 
+					onSearchClick={() => searchProjects()} />
+				<Loader active={projectsLoading} inline />
+				{!projectsLoading && projects.length === 0 && <>
+					<img src={emptyListImage} className={styles.placeholder_image} />
 					<p className={styles.placeholder_text}>No results found ...</p>
 				</>}
-				{companies.map(c => (
-					<CompanyCard
-						key={c.id}
-						id={c.id}
-						companyName={c.name}
-						image={c.logo}
-						status={c.isVerified ? 'Verified' : 'Not verified'}
-						industries={c.industries.map(i => i.name)}
-						technologies={c.technologies.map(t => t.name)}
-						details={c.description}
+				{projects.map(p => (
+					<ProjectCard
+						key={p.id}
+						title={p.title}
+						image={p['logo_url']}
+						companyName={p.company.name}
+						companyId={p.company.id}
+						industries={p.industries.map(i => i.name)}
+						technologies={p.technologies.map(t => t.name)}
+						description={p.description}
 					/>
 				))}
 			</div>
@@ -133,18 +130,18 @@ const CompaniesPage = ({
 }
 
 const mapStateToProps = (state) => ({
-	companies: state.companiesData.companies,
+	projects: state.projectsData.projects,
+	projectsLoading: state.projectsData.loading,
 	industries: state.companiesData.industries,
 	technologies: state.companiesData.technologies,
-	companiesLoading: state.companiesData.companiesLoading,
 	industriesLoading: state.companiesData.industriesLoading,
 	technologiesLoading: state.companiesData.technologiesLoading,
 });
 
 const mapDispatchToProps = {
-	getCompanies: getCompaniesRoutine,
 	getTechnologies: getTechnologiesRoutine,
 	getIndustries: getIndustriesRoutine,
+	getProjects: getProjectsRoutine,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompaniesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsPage);
