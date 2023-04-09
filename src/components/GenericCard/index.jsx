@@ -13,6 +13,7 @@ const GenericCard = (props) => {
         details,
         controls,
         onCardClick,
+        subHeader,
     } = props;
 
     console.log(onCardClick)
@@ -27,6 +28,7 @@ const GenericCard = (props) => {
                 </div>
                 <div className={styles.vertical}>
                     <div className={styles.item_header}>{itemHeader}</div>
+                    {subHeader}
                     {infoItems.map(item => (
                         <div key={item.title} className={styles.horizontal}>
                             <div className={styles.request_point}>{item.title}:</div>

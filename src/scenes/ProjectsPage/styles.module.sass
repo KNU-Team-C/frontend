@@ -1,0 +1,55 @@
+@import 'src/styles/variables'
+
+.horizontal
+  display: flex
+  flex-direction: row
+
+.vertical
+  display: flex
+  flex-direction: column
+
+.projects_container
+  padding: $indent $indent 5rem $indent
+  display: flex
+  position: relative
+  flex-direction: row
+  min-height: calc(100vh - $header-height - $footer-height)
+
+.filters
+  height: 100%
+  flex: 1
+
+.tag_filter
+  width: 100%
+  margin-bottom: 1rem
+
+.search_container
+  height: 100%
+  flex: 4
+  margin-left: 2rem
+
+.search_margin
+  margin-bottom: 7px
+
+.create_company_btn
+  position: fixed
+  bottom: 2rem
+  right: calc($indent - 0.5rem)
+  cursor: pointer
+  outline: none
+  color: $white
+  background: $bittersweet
+  border: none
+  width: 4rem
+  height: 4rem
+  font-size: 2em
+  border-radius: 100%
+
+.placeholder_image
+  height: 25rem
+  align-self: center
+  object-fit: cover
+
+.placeholder_text
+  color: $black
+  text-align: center
