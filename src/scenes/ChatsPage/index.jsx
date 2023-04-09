@@ -1,9 +1,56 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles.module.sass';
 import ChatInfo from '../../components/ChatComponents/ChatInfo';
 import ChatMessage from "../../components/ChatComponents/ChatMessage";
+import ChatClient from "./client";
 
 function ChatPage() {
+    const [messages, setMessages] = useState([]);
+    const [client, setClient] = useState(null);
+
+    useEffect(() => {
+        console.log("Connecting to server");
+
+        const chatClient = new ChatClient(
+            "http://127.0.0.1:5000",
+            {
+                connect: () => {
+                    console.log("Connected to server");
+                },
+                disconnect: () => {
+                    console.log("Disconnected from server");
+                },
+                message: (message) => {
+                    console.log("Message received", message);
+                    if (typeof message !== "object") {
+                        return;
+                    }
+                    setMessages((prevMessages) => [...prevMessages, {text: message.message, time: Date.now()}]);
+                },
+            }
+        );
+
+        setClient(chatClient);
+
+        return () => {
+            chatClient.disconnect();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (client) {
+            client.joinChat("tkn", {
+                "chat-id": 1,
+                "sender-id": 1,
+            });
+            console.log("Joined chat")
+        }
+    }, [client]);
+
+    const sendMessage = () => {
+        setMessages([...messages, { text: "Hello, how are you?", time: "10:00" }]);
+    };
+
     return (
         <div className={styles.chatWrapper}>
             <div className={styles.chatContainer}>
@@ -37,22 +84,17 @@ function ChatPage() {
                     <div className={styles.chatMessagesHeader}>Name</div>
                     <div className={styles.chatBodyWrapper}>
                         <div className={styles.chatBody}>
-                            <ChatMessage message={
-                                {
-                                    text: "Hello, how are you?",
-                                    time: "10:00"
-                                }
-                            } isMine={true}></ChatMessage>
-                            <ChatMessage message={
-                                {
-                                    text: "Hello, how are you?",
-                                    time: "10:00"
-                                }
-                            } isMine={false}></ChatMessage>
+                            {
+                                messages.map((message, index) => {
+                                    return (
+                                        <ChatMessage key={index} message={message} isMine={index % 2 === 0}></ChatMessage>
+                                    )
+                                })
+                            }
                         </div>
                         <div className={styles.chatInputWrapper}>
                             <input type="text" className={styles.chatInput} />
-                            <button className={styles.chatInputButton}>Send</button>
+                            <button className={styles.chatInputButton} onClick={sendMessage}>Send</button>
                         </div>
                     </div>
                 </div>
