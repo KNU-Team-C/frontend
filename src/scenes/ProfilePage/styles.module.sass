@@ -1,0 +1,64 @@
+@import 'src/styles/variables'
+
+.horizontal
+  display: flex
+  flex-direction: row
+
+.vertical
+  display: flex
+  flex-direction: column
+
+.child_center_vertical
+  child-align: middle
+  align-items: center
+  align-content: center
+
+.main_container
+  padding: $indent 7rem 5rem 7rem
+  display: flex
+  position: relative
+  flex-direction: column
+  width: 100%
+  min-height: calc(100vh - $header-height - $footer-height)
+
+.avatar_image
+  height: 190px
+  width: 190px
+  max-width: 190px
+  max-height: 190px
+  object-fit: cover
+  border-radius: 50%
+  flex: 1
+
+.contacts_container
+  margin-left: 3rem
+  gap: 1rem
+  flex: 1
+
+.name_text
+  font-family: inherit
+  font-size: 3em
+  font-weight: 800
+  color: $black
+  border-width: 0
+
+.contacts_text
+  font-family: inherit
+  font-size: 1.5em
+  font-weight: 700
+  color: $black
+  border-width: 0
+
+.text_input
+  margin: 0 0.5rem
+
+
+.button_save
+  margin-top: 2rem
+  text-align: center
+  padding: 0.7rem
+  font-size: 1.2em
+  color: $white
+  border-radius: 5px
+  border-width: 0
+  background-color: $heliotrope

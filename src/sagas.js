@@ -5,6 +5,7 @@ import companiesSagas from './scenes/CompaniesPage/sagas';
 import authCompaniesSagas from "./scenes/AdminCompanySearch/sagas";
 import adminUsersSagas from "./scenes/AdminUserSearch/sagas";
 import adminRequestsSagas from "./scenes/AdminRequestsPage/sagas";
+import profileSagas from "./scenes/ProfilePage/sagas";
 
 export default function* rootSaga() {
     yield all([
@@ -14,5 +15,6 @@ export default function* rootSaga() {
         authCompaniesSagas(),
         adminUsersSagas(),
         adminRequestsSagas(),
+        profileSagas(),
     ]);
 }
