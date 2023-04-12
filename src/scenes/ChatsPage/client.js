@@ -3,12 +3,20 @@
 import { io } from "socket.io-client";
 
 class ChatClient {
+
     constructor(uri, callbacks) {
-        this.socket = io(uri);
+        this.socket = io(uri, {
+            reconnection: true,
+            reconnectionDelay: 1000,
+            reconnectionDelayMax: 5000,
+            reconnectionAttempts: Infinity,
+        });
 
         for (let key in callbacks) {
             this.socket.on(key, callbacks[key]);
         }
+
+        this.callbacks = callbacks;
     }
 
     joinChat(token, data) {
@@ -24,7 +32,9 @@ class ChatClient {
     }
 
     disconnect() {
-        this.socket.disconnect();
+        for (let key in this.callbacks) {
+            this.socket.off(key, this.callbacks[key]);
+        }
     }
 }
 

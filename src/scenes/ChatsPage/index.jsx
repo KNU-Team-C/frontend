@@ -3,13 +3,14 @@ import styles from './styles.module.sass';
 import ChatInfo from '../../components/ChatComponents/ChatInfo';
 import ChatMessage from "../../components/ChatComponents/ChatMessage";
 import ChatClient from "./client";
+import {getToken} from "../../helpers/token.helper";
+// import {getToken} from "../../helpers/token.helper";
 
 function ChatPage() {
     const [messages, setMessages] = useState([]);
     const [client, setClient] = useState(null);
 
     useEffect(() => {
-        console.log("Connecting to server");
 
         const chatClient = new ChatClient(
             "http://127.0.0.1:5000",
@@ -39,7 +40,7 @@ function ChatPage() {
 
     useEffect(() => {
         if (client) {
-            client.joinChat("tkn", {
+            client.joinChat(getToken(), {
                 "chat-id": 1,
                 "sender-id": 1,
             });
