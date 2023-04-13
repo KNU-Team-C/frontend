@@ -20,8 +20,15 @@ const ProfilePage = ({
         getProfile({own, id});
     }, []);
 
+    const [isEditing, setEditing] = useState(false)
+
     const [syncedProfile, setSyncedProfile] = useState({});
     const [currentProfile, setCurrentProfile] = useState(profile);
+    const [editedName, setEditedName] = useState("");
+
+    const editStyles = () => {
+        return isEditing ? styles.editable : styles.disabled
+    }
 
     const areEquals = (profile1, profile2) => {
         return profile1.first_name === profile2.first_name &&
@@ -31,30 +38,34 @@ const ProfilePage = ({
             profile1.ava_url === profile2.ava_url
     }
 
-    const areProfilesEquals = () => {
-        return areEquals(profile, currentProfile)
-    }
-
     if (profile && syncedProfile && !areEquals(profile, syncedProfile)) {
         setCurrentProfile(profile)
         setSyncedProfile(profile)
+        setEditedName(profile.first_name + " " + profile.last_name)
+    }
+
+    const cancel = () => {
+        setCurrentProfile(syncedProfile)
+        setEditing(false)
+        setEditedName(syncedProfile.first_name + " " + syncedProfile.last_name)
     }
 
     const updateProfile = ({
-                               new_first_name = currentProfile.first_name,
-                               new_last_name = currentProfile.last_name,
+                               new_edited_name = editedName,
                                new_email = currentProfile.email,
                                new_phone_number = currentProfile.phone_number,
                                new_ava_url = currentProfile.ava_url,
                            }) => {
+        const index = new_edited_name.search("")
         setCurrentProfile({
             ...currentProfile,
-            first_name: new_first_name,
-            last_name: new_last_name,
+            first_name: new_edited_name.substring(0, index),
+            last_name: new_edited_name.substring(index + 1),
             email: new_email,
             phone_number: new_phone_number,
             ava_url: new_ava_url,
         })
+        setEditedName(new_edited_name)
     }
     const makeEditRequest = () => {
         console.log(currentProfile)
@@ -71,24 +82,19 @@ const ProfilePage = ({
 
     const editableContacts = <div className={classNames(styles.vertical, styles.contacts_container)}>
         <div className={styles.horizontal}>
-            <input className={styles.name_text} type={"text"}
-                   value={currentProfile.first_name || ''}
+            <input className={classNames(styles.name_text, editStyles())} type={"text"}
+                   disabled={!isEditing}
+                   value={editedName}
                    onChange={(e) => {
-                       updateProfile({new_first_name: e.target.value})
-                   }
-                   }/>
-            <div className={styles.name_text}>{" "}</div>
-            <input className={styles.name_text} type={"text"}
-                   value={currentProfile.last_name || ''}
-                   onChange={(e) => {
-                       updateProfile({new_last_name: e.target.value})
+                       updateProfile({new_edited_name: e.target.value})
                    }
                    }/>
         </div>
         <div className={classNames(styles.horizontal, styles.child_center_vertical)}>
             <div className={styles.contacts_text}>{"Email: "}</div>
-            <input className={classNames(styles.contacts_text, styles.text_input)} type={"text"}
+            <input className={classNames(styles.contacts_text, styles.text_input, editStyles())} type={"text"}
                    value={currentProfile.email || ''}
+                   disabled={!isEditing}
                    onChange={(e) => {
                        updateProfile({new_email: e.target.value})
                    }
@@ -96,7 +102,8 @@ const ProfilePage = ({
         </div>
         <div className={classNames(styles.horizontal, styles.child_center_vertical)}>
             <div className={styles.contacts_text}>{"Phone: "}</div>
-            <input className={classNames(styles.contacts_text, styles.text_input)} type={"text"}
+            <input className={classNames(styles.contacts_text, styles.text_input, editStyles())} type={"text"}
+                   disabled={!isEditing}
                    value={currentProfile.phone_number || ''}
                    onChange={(e) => {
                        updateProfile({new_phone_number: e.target.value})
@@ -113,15 +120,14 @@ const ProfilePage = ({
                     {own ? editableContacts : notEditableContacts}
                 </div>
             }
-            {!areProfilesEquals() && !editLoading &&
-                <button
-                    className={styles.button_save}
-                    onClick={() => {
-                        makeEditRequest()
-                    }}
-                    key={"Save changes"}
-                >{"Save changes"}</button>
-            }
+            <div className={styles.horizontal}>
+                {own && !isEditing &&
+                    <button className={styles.btn} onClick={() => setEditing(true)}>Edit</button>}
+                {own && isEditing &&
+                    <button className={styles.btn} onClick={() => makeEditRequest()}>Save</button>}
+                {own && isEditing &&
+                    <button className={styles.btn_reverted} onClick={() => cancel()}>Cancel</button>}
+            </div>
             <Loader active={profileLoading || editLoading} inline/>
         </div>
     );
