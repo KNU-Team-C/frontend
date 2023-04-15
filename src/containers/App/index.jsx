@@ -18,6 +18,7 @@ import PageNotFound from '../../scenes/PageNotFound';
 import ChatsPage from "../../scenes/ChatsPage";
 import CompanyPage from '../../scenes/CompanyPage';
 import ProjectsPage from '../../scenes/ProjectsPage';
+import AdminHomePage from "../../scenes/AdminHomePage";
 import ProfilePage from "../../scenes/ProfilePage";
 
 
@@ -27,6 +28,7 @@ const App = () => (
         <Switch>
             <Route exact path="/" component={() => localStorage.getItem(TOKEN_NAME) ? <HomePage /> : <LandingPage />} />
             <Route exact path="/home" component={HomePage} />
+            <Route exact path="/admin" component={() => localStorage.getItem(TOKEN_NAME) ? <AdminHomePage /> : <LandingPage />} />
             <Route exact path="/admin/requests" component={AdminRequestsPage} />
             <Route exact path="/admin/users" component={AdminUserPage} />
             <Route exact path="/admin/companies" component={AdminCompanyPage} />
