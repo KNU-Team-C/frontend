@@ -34,11 +34,9 @@ export const getTechnologies = async (payload) => {
     const result = await callWebApi({
         endpoint: payload?.query === undefined ? '/technologies' : `/technologies?search_query=${payload?.query}`,
         type: 'GET'
-    }).then((response) => {
-        return response.json();
     })
 
-    return result.technologies;
+    return result.json();
 }
 
 
@@ -46,11 +44,9 @@ export const getIndustries = async (payload) => {
     const result = await callWebApi({
         endpoint: payload?.query === undefined ? '/industries' : `/industries?search_query=${payload?.query}`,
         type: 'GET'
-    }).then((response) => {
-        return response.json();
     })
 
-    return result.industries;
+    return result.json();
 }
 
 export const setCompanyVerified = async ({companyId}) => {
