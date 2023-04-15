@@ -19,14 +19,10 @@ function removeById(items, id) {
     })
 }
 
-function updateUser(users, user) {
-    const indexToUpdate = users.findIndex((element) => {
-        return element.id === user.id;
+function removeUser(users, user) {
+    return users.filter((element) => {
+        return element.id !== user.id;
     });
-    if (indexToUpdate !== -1) {
-        users[indexToUpdate] = user;
-    }
-    return users
 }
 
 const adminRequestsData = (state = initialState, action) => {
@@ -106,7 +102,7 @@ const adminRequestsData = (state = initialState, action) => {
         case setUserBannedRoutine.SUCCESS:
             return {
                 ...state,
-                users: updateUser(state.users, action.payload).slice(),
+                users: removeUser(state.users, action.payload).slice(),
             }
         case setUserBannedRoutine.TRIGGER:
             return {
