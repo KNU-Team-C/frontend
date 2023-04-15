@@ -28,16 +28,16 @@ const AdminHomePage = () => {
 						<Card.Header>Companies</Card.Header>
 					</Card.Content>
 				</Card>
-				<Card color='orange' href="/admin/requests">
+				<Card color='yellow' href="/admin/users">
 					<img src={setsImage} className={styles.card_image} />
 					<Card.Content>
-						<Card.Header>Requests</Card.Header>
+						<Card.Header>Users</Card.Header>
 					</Card.Content>
 				</Card>
-				<Card color='yellow' href="/admin/users">
+				<Card color='orange' href="/admin/requests">
 					<img src={chatImage} className={styles.card_image} />
 					<Card.Content>
-						<Card.Header>Users</Card.Header>
+						<Card.Header>Requests</Card.Header>
 					</Card.Content>
 				</Card>
 			</Card.Group>
