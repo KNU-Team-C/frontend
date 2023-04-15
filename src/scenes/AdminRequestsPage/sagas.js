@@ -2,7 +2,53 @@ import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { toastr } from 'react-redux-toastr';
 import {getAdminRequestsCompaniesRoutine, getAdminRequestsUsersRoutine} from './routines';
 import * as service from './service';
+import {setAdminCompanyVerifiedRoutine, setAdminCompanyVerifyDismissRoutine} from "../AdminCompanySearch/routines";
+import {setUserBannedRoutine} from "../AdminUserSearch/routines";
 
+function* setCompanyVerified({ payload }) {
+    console.log('setCompanyVerified');
+    try {
+        const response = yield call(() => service.setCompanyVerified(payload));
+        yield put(setAdminCompanyVerifiedRoutine.success(response));
+    } catch (error) {
+        yield put(setAdminCompanyVerifiedRoutine.failure(error.message));
+        toastr.error('Error appeared', 'Could not set company verified');
+    }
+}
+
+function* watchSetCompanyVerified() {
+    yield takeEvery(setAdminCompanyVerifiedRoutine.TRIGGER, setCompanyVerified);
+}
+function* setCompanyVerifyDismiss({ payload }) {
+    console.log('setCompanyVerifyDismiss');
+    try {
+        const response = yield call(() => service.setCompanyVerifyDismiss(payload));
+        yield put(setAdminCompanyVerifyDismissRoutine.success(response));
+    } catch (error) {
+        yield put(setAdminCompanyVerifyDismissRoutine.failure(error.message));
+        toastr.error('Error appeared', 'Could not set company verify dismiss');
+    }
+}
+
+function* watchSetCompanyVerifyDismiss() {
+    yield takeEvery(setAdminCompanyVerifyDismissRoutine.TRIGGER, setCompanyVerifyDismiss);
+}
+
+function* setUserBanned({payload}) {
+    console.log('SET USER BANNED');
+    try {
+        const response = yield call(() => service.setUserBanned(payload));
+        yield put(setUserBannedRoutine.success(response));
+    } catch (error) {
+        yield put(setUserBannedRoutine.failure(error.message));
+        toastr.error('Error appeared', 'Could not set user banned');
+    }
+}
+
+
+function* watchSetUserBanned() {
+    yield takeEvery(setUserBannedRoutine.TRIGGER, setUserBanned);
+}
 function* getUsers({ payload }) {
     console.log('GETTING REQUESTS USERS');
     try {
@@ -36,5 +82,8 @@ export default function* adminRequestsSagas() {
     yield all([
         watchGetUsers(),
         watchGetCompanies(),
+        watchSetCompanyVerified(),
+        watchSetCompanyVerifyDismiss(),
+        watchSetUserBanned(),
     ]);
 }

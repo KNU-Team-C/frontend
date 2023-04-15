@@ -52,3 +52,29 @@ export const getIndustries = async (payload) => {
 
     return result.industries;
 }
+
+export const setCompanyVerified = async ({companyId}) => {
+    const endpoint = '/admin/company/' + companyId + '/verify'
+    const result = await callWebApi({
+        endpoint: endpoint,
+        type: 'POST'
+    }).then((response) => {
+        return response.json();
+    })
+    result.id = companyId
+
+    return result;
+}
+
+export const setCompanyVerifyDismiss = async ({companyId}) => {
+    const endpoint = '/admin/company/' + companyId + '/verify_request_cancel'
+    const result = await callWebApi({
+        endpoint: endpoint,
+        type: 'GET'
+    }).then((response) => {
+        return response.json();
+    })
+    result.id = companyId
+
+    return result;
+}

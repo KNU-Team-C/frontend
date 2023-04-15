@@ -1,8 +1,42 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { toastr } from 'react-redux-toastr';
-import { getAdminCompaniesRoutine, getAdminIndustriesRoutine, getAdminTechnologiesRoutine } from './routines';
+import {
+    getAdminCompaniesRoutine,
+    getAdminIndustriesRoutine,
+    getAdminTechnologiesRoutine,
+    setAdminCompanyVerifiedRoutine,
+    setAdminCompanyVerifyDismissRoutine
+} from './routines';
 import * as service from './service';
 
+function* setCompanyVerified({ payload }) {
+    console.log('setCompanyVerified');
+    try {
+        const response = yield call(() => service.setCompanyVerified(payload));
+        yield put(setAdminCompanyVerifiedRoutine.success(response));
+    } catch (error) {
+        yield put(setAdminCompanyVerifiedRoutine.failure(error.message));
+        toastr.error('Error appeared', 'Could not set company verified');
+    }
+}
+
+function* watchSetCompanyVerified() {
+    yield takeEvery(setAdminCompanyVerifiedRoutine.TRIGGER, setCompanyVerified);
+}
+function* setCompanyVerifyDismiss({ payload }) {
+    console.log('setCompanyVerifyDismiss');
+    try {
+        const response = yield call(() => service.setCompanyVerifyDismiss(payload));
+        yield put(setAdminCompanyVerifyDismissRoutine.success(response));
+    } catch (error) {
+        yield put(setAdminCompanyVerifyDismissRoutine.failure(error.message));
+        toastr.error('Error appeared', 'Could not set company verify dismiss');
+    }
+}
+
+function* watchSetCompanyVerifyDismiss() {
+    yield takeEvery(setAdminCompanyVerifyDismissRoutine.TRIGGER, setCompanyVerifyDismiss);
+}
 function* getCompanies({ payload }) {
     console.log('GETTING COMPANIES');
     try {
@@ -51,5 +85,7 @@ export default function* authCompaniesSagas() {
         watchGetCompanies(),
         watchGetTechnologies(),
         watchGetIndustries(),
+        watchSetCompanyVerified(),
+        watchSetCompanyVerifyDismiss(),
     ]);
 }

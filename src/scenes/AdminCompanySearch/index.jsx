@@ -8,7 +8,13 @@ import AdminCompanyCard from "../../components/AdminCompanyCard";
 import { connect } from "react-redux";
 import { Loader } from "semantic-ui-react";
 import emptyListImage from "../../assets/empty-list.png";
-import { getAdminCompaniesRoutine, getAdminIndustriesRoutine, getAdminTechnologiesRoutine } from "./routines";
+import {
+    getAdminCompaniesRoutine,
+    getAdminIndustriesRoutine,
+    getAdminTechnologiesRoutine,
+    setAdminCompanyVerifiedRoutine,
+    setAdminCompanyVerifyDismissRoutine
+} from "./routines";
 
 const AdminCompanyPage = ({
     companiesLoading,
@@ -20,6 +26,8 @@ const AdminCompanyPage = ({
     getCompanies,
     getIndustries,
     getTechnologies,
+    setAdminCompanyVerified,
+    setAdminCompanyVerifyDismiss,
 }) => {
 
     const [searchText, setSearchText] = useState(''); // input text before clicking on search
@@ -192,9 +200,18 @@ const AdminCompanyPage = ({
                         companyName={c.name}
                         image={c.ava_url}
                         status={c.isVerified ? 'Verified' : 'Not verified'}
-                        industries={c.industries}
-                        technologies={c.technologies}
+                        industries={c.industries.map(i => i.name)}
+                        technologies={c.technologies.map(t => t.name)}
                         details={c.description}
+                        onCommunicateClick={() => {
+                            window.location.href = "/chats"
+                        }}
+                        onVerifyClick={() => {
+                            setAdminCompanyVerified({companyId: c.id})
+                        }}
+                        onDeclineClick={() => {
+                            setAdminCompanyVerifyDismiss({companyId: c.id})
+                        }}
                     />
                 ))}
             </div>
@@ -215,6 +232,8 @@ const mapDispatchToProps = {
     getCompanies: getAdminCompaniesRoutine,
     getTechnologies: getAdminTechnologiesRoutine,
     getIndustries: getAdminIndustriesRoutine,
+    setAdminCompanyVerified: setAdminCompanyVerifiedRoutine,
+    setAdminCompanyVerifyDismiss: setAdminCompanyVerifyDismissRoutine,
 }
 
 

@@ -1,4 +1,6 @@
 import {getAdminRequestsCompaniesRoutine, getAdminRequestsUsersRoutine} from './routines';
+import {setAdminCompanyVerifiedRoutine, setAdminCompanyVerifyDismissRoutine} from "../AdminCompanySearch/routines";
+import {setUserBannedRoutine} from "../AdminUserSearch/routines";
 
 const initialState = {
     usersLoading: true,
@@ -7,6 +9,21 @@ const initialState = {
     companies: [],
 }
 
+function removeById(items, id) {
+    return items.filter((item) => {
+        return item.id === id
+    })
+}
+function updateUser(users, user) {
+    const indexToUpdate = users.findIndex((element) => {
+        return element.id === user.is;
+    });
+
+    if (indexToUpdate !== -1) {
+        users[indexToUpdate] = user;
+    }
+    return users
+}
 const adminRequestsData = (state = initialState, action) => {
     switch (action.type) {
         case getAdminRequestsUsersRoutine.SUCCESS:
@@ -54,6 +71,45 @@ const adminRequestsData = (state = initialState, action) => {
                 companiesLoading: false,
                 users: [],
                 usersLoading: false,
+            }
+        case setAdminCompanyVerifiedRoutine.SUCCESS:
+            return {
+                ...state,
+                companies: removeById(state.companies, action.payload.id),
+            }
+        case setAdminCompanyVerifiedRoutine.TRIGGER:
+            return {
+                ...state,
+            }
+        case setAdminCompanyVerifiedRoutine.FAILURE:
+            return {
+                ...state,
+            }
+        case setAdminCompanyVerifyDismissRoutine.SUCCESS:
+            return {
+                ...state,
+                companies: removeById(state.companies, action.payload.id),
+            }
+        case setAdminCompanyVerifyDismissRoutine.TRIGGER:
+            return {
+                ...state,
+            }
+        case setAdminCompanyVerifyDismissRoutine.FAILURE:
+            return {
+                ...state,
+            }
+        case setUserBannedRoutine.SUCCESS:
+            return {
+                ...state,
+                users: updateUser(state.users, action.payload),
+            }
+        case setUserBannedRoutine.TRIGGER:
+            return {
+                ...state,
+            }
+        case setUserBannedRoutine.FAILURE:
+            return {
+                ...state,
             }
         default: {
             return state;

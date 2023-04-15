@@ -23,3 +23,18 @@ export const getUsers = async ({query, banned, reported}) => {
 
     return users;
 };
+
+export const setUserBanned = async ({userId, banned}) => {
+    console.log('setUserBanned', userId, banned);
+    const endpoint = '/admin/user_banned/' + userId;
+    console.log('ENDPOINT', endpoint);
+    const result = await callWebApi({
+        endpoint,
+        request: {'banned': banned},
+        type: 'PUT',
+    }).then((response) => {
+        return response.json();
+    });
+    return result;
+};
+
