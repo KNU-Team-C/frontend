@@ -66,7 +66,7 @@ export const setCompanyVerifyDismiss = async ({companyId}) => {
     const endpoint = '/admin/company/' + companyId + '/verify_request_cancel'
     const result = await callWebApi({
         endpoint: endpoint,
-        type: 'GET'
+        type: 'POST'
     }).then((response) => {
         return response.json();
     })

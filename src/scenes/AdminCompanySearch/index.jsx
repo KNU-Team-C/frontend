@@ -199,7 +199,7 @@ const AdminCompanyPage = ({
                         key={c.id}
                         companyName={c.name}
                         image={c.ava_url}
-                        status={c.isVerified ? 'Verified' : 'Not verified'}
+                        status={c.is_verified ? 'Verified' : 'Not verified'}
                         industries={c.industries.map(i => i.name)}
                         technologies={c.technologies.map(t => t.name)}
                         details={c.description}

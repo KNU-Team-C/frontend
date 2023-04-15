@@ -17,7 +17,7 @@ const initialState = {
 
 function removeById(items, id) {
     return items.filter((item) => {
-        return item.id === id
+        return item.id !== id
     })
 }
 

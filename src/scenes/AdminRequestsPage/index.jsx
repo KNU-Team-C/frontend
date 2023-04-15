@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from './styles.module.sass';
 import AdminRequestCompanyCard from "../../components/AdminRequestCompanyCard";
-import AdminRequestUserCard from "../../components/AdminRequestUserCard";
 import TagFilter from "../../components/TagFilter";
 import Tag from "../../components/Tag";
 import SearchField from "../../components/SearchField";
@@ -14,24 +13,26 @@ import emptyListImage from "../../assets/empty-list.png";
 import {getAdminRequestsCompaniesRoutine, getAdminRequestsUsersRoutine} from "./routines";
 import {setAdminCompanyVerifiedRoutine, setAdminCompanyVerifyDismissRoutine} from "../AdminCompanySearch/routines";
 import {setUserBannedRoutine} from "../AdminUserSearch/routines";
+import GenericCard from "../../components/GenericCard";
 
 
 function getDescriptionForCompany(company) {
     if (!company.isVerified) {
         return company.description
+    } else {
+        let description = company.description || "";
+        description += "\nReports:\n"
+        for (const report of company.reports || []) {
+            description += report.message + "\n"
+        }
+        return description
     }
-    let description = company.description + "\n";
-    description += "Reports:\n"
-    for (const report of company.reports) {
-        description += report.message + "\n"
-    }
-    return description
 }
 
 function getDescriptionForUser(user) {
-    let description = user.description + "\n";
-    description += "Reports:\n"
-    for (const report of user.reports) {
+    let description = user.description || "";
+    description += "\nReports:\n"
+    for (const report of user.reports || []) {
         description += report.message + "\n"
     }
     return description
@@ -146,26 +147,32 @@ const AdminRequestsPage = ({
                     <p className={styles.placeholder_text}>No results found ...</p>
                 </>}
 
-                {users.map(u => (
-                    <AdminRequestUserCard
-                        id={u.id}
-                        typeOfRequest={'Reported'}
-                        username={u.first_name + ' ' + u.last_name}
-                        status={u.status}
-                        image={u.ava_url}
-                        details={getDescriptionForUser(u)}
-                        key={u.id}
-                        onCommunicateClick={() => {
+                {users.map(function (u) {
+                    let cardControls = [{
+                        text: 'Communicate',
+                        className: styles.button_communicate,
+                        onClick: () => {
                             window.location.href = "/chats"
-                        }}
-                        onBanClick={() => {
+                        }
+                    }, {
+                        text: 'Ban',
+                        className: styles.button_ban,
+                        onClick: () => {
                             setUserBanned({userId: u.id, banned: true})
-                        }}
-                        onUnbanClick={() => {
-                            setUserBanned({userId: u.id, banned: false})
-                        }}
-                    />
-                ))}
+                        }
+                    }];
+
+                    return (
+                        <GenericCard
+                            itemHeader={u.first_name + ' ' + u.last_name}
+                            infoItems={[]}
+                            image={u.ava_url}
+                            details={getDescriptionForUser(u)}
+                            controls={cardControls}
+                            key={u.id}
+                        />
+                    );
+                })}
 
                 {companies.map(c => (
                     <AdminRequestCompanyCard

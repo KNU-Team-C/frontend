@@ -10,7 +10,7 @@ function* getUsers({payload}) {
         yield put(getAdminUsersRoutine.success(response));
     } catch (error) {
         yield put(getAdminUsersRoutine.failure(error.message));
-        toastr.error('Error appeared', 'Could not get companies');
+        toastr.error('Error appeared', 'Could not get users');
     }
 }
 function* watchGetUsers() {
