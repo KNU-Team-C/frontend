@@ -44,3 +44,44 @@ export const getCompanies = async ({query, verification, reports}) => {
 
     return companies;
 };
+
+export const setCompanyVerified = async ({companyId}) => {
+    const endpoint = '/admin/company/' + companyId + '/verify'
+    const result = await callWebApi({
+        endpoint: endpoint,
+        type: 'POST'
+    }).then((response) => {
+        return response.json();
+    })
+    result.id = companyId
+
+    return result;
+}
+
+export const setCompanyVerifyDismiss = async ({companyId}) => {
+    const endpoint = '/admin/company/' + companyId + '/verify_request_cancel'
+    const result = await callWebApi({
+        endpoint: endpoint,
+        type: 'GET'
+    }).then((response) => {
+        return response.json();
+    })
+    result.id = companyId
+
+    return result;
+}
+
+export const setUserBanned = async ({userId, banned}) => {
+    console.log('setUserBanned', userId, banned);
+    const endpoint = '/admin/user_banned/' + userId;
+    console.log('ENDPOINT', endpoint);
+    const result = await callWebApi({
+        endpoint,
+        request: {'banned': banned},
+        type: 'PUT',
+    }).then((response) => {
+        return response.json();
+    });
+    return result;
+};
+

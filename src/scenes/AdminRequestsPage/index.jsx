@@ -12,6 +12,8 @@ import {connect} from "react-redux";
 import {Loader} from "semantic-ui-react";
 import emptyListImage from "../../assets/empty-list.png";
 import {getAdminRequestsCompaniesRoutine, getAdminRequestsUsersRoutine} from "./routines";
+import {setAdminCompanyVerifiedRoutine, setAdminCompanyVerifyDismissRoutine} from "../AdminCompanySearch/routines";
+import {setUserBannedRoutine} from "../AdminUserSearch/routines";
 
 const AdminRequestsPage = ({
                                companies,
@@ -20,6 +22,9 @@ const AdminRequestsPage = ({
                                usersLoading,
                                users,
                                getUsers,
+                               setUserBanned,
+                               setAdminCompanyVerified,
+                               setAdminCompanyVerifyDismiss,
                            }) => {
 
     const [searchText, setSearchText] = useState(''); // input text before clicking on search
@@ -129,6 +134,15 @@ const AdminRequestsPage = ({
                         image={u.ava_url}
                         details={u.description}
                         key={u.id}
+                        onCommunicateClick={() => {
+                            window.location.href = "/chats"
+                        }}
+                        onBanClick={() => {
+                            setUserBanned({userId: u.id, banned: true})
+                        }}
+                        onUnbanClick={() => {
+                            setUserBanned({userId: u.id, banned: false})
+                        }}
                     />
                 ))}
 
@@ -143,6 +157,15 @@ const AdminRequestsPage = ({
                         industries={c.industries}
                         technologies={c.technologies}
                         details={c.description}
+                        onCommunicateClick={() => {
+                            window.location.href = "/chats"
+                        }}
+                        onVerifyClick={() => {
+                            setAdminCompanyVerified({companyId: c.id})
+                        }}
+                        onDeclineClick={() => {
+                            setAdminCompanyVerifyDismiss({companyId: c.id})
+                        }}
                     />
                 ))}
             </div>
@@ -161,6 +184,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     getUsers: getAdminRequestsUsersRoutine,
     getCompanies: getAdminRequestsCompaniesRoutine,
+    setAdminCompanyVerified: setAdminCompanyVerifiedRoutine,
+    setAdminCompanyVerifyDismiss: setAdminCompanyVerifyDismissRoutine,
+    setUserBanned: setUserBannedRoutine,
 }
 
 

@@ -6,7 +6,7 @@ import Tag from "../../components/Tag";
 import SearchField from "../../components/SearchField";
 import classNames from "../../commons/classnames";
 import {connect} from "react-redux";
-import {getAdminUsersRoutine} from "./routines";
+import {getAdminUsersRoutine, setUserBannedRoutine} from "./routines";
 import {Loader} from "semantic-ui-react";
 import emptyListImage from "../../assets/empty-list.png";
 
@@ -14,6 +14,7 @@ const AdminUserPage = ({
                            usersLoading,
                            users,
                            getUsers,
+                           setUserBanned,
                        }) => {
 
     const [searchText, setSearchText] = useState(''); // input text before clicking on search
@@ -96,6 +97,15 @@ const AdminUserPage = ({
                         image={u.ava_url}
                         details={u.description}
                         key={u.id}
+                        onCommunicateClick={() => {
+                            window.location.href = "/chats"
+                        }}
+                        onBanClick={() => {
+                            setUserBanned({userId: u.id, banned: true})
+                        }}
+                        onUnbanClick={() => {
+                            setUserBanned({userId: u.id, banned: false})
+                        }}
                     />
                 ))}
             </div>
@@ -110,6 +120,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     getUsers: getAdminUsersRoutine,
+    setUserBanned: setUserBannedRoutine,
 }
 
 
