@@ -200,8 +200,8 @@ const AdminCompanyPage = ({
                         companyName={c.name}
                         image={c.ava_url}
                         status={c.isVerified ? 'Verified' : 'Not verified'}
-                        industries={c.industries}
-                        technologies={c.technologies}
+                        industries={c.industries.map(i => i.name)}
+                        technologies={c.technologies.map(t => t.name)}
                         details={c.description}
                         onCommunicateClick={() => {
                             window.location.href = "/chats"

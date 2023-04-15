@@ -15,6 +15,28 @@ import {getAdminRequestsCompaniesRoutine, getAdminRequestsUsersRoutine} from "./
 import {setAdminCompanyVerifiedRoutine, setAdminCompanyVerifyDismissRoutine} from "../AdminCompanySearch/routines";
 import {setUserBannedRoutine} from "../AdminUserSearch/routines";
 
+
+function getDescriptionForCompany(company) {
+    if (!company.isVerified) {
+        return company.description
+    }
+    let description = company.description + "\n";
+    description += "Reports:\n"
+    for (const report of company.reports) {
+        description += report.message + "\n"
+    }
+    return description
+}
+
+function getDescriptionForUser(user) {
+    let description = user.description + "\n";
+    description += "Reports:\n"
+    for (const report of user.reports) {
+        description += report.message + "\n"
+    }
+    return description
+}
+
 const AdminRequestsPage = ({
                                companies,
                                companiesLoading,
@@ -50,7 +72,6 @@ const AdminRequestsPage = ({
                 getCompanies(args)
                 break
         }
-
     }
 
     useEffect(() => {
@@ -132,7 +153,7 @@ const AdminRequestsPage = ({
                         username={u.first_name + ' ' + u.last_name}
                         status={u.status}
                         image={u.ava_url}
-                        details={u.description}
+                        details={getDescriptionForUser(u)}
                         key={u.id}
                         onCommunicateClick={() => {
                             window.location.href = "/chats"
@@ -154,9 +175,9 @@ const AdminRequestsPage = ({
                         image={c.ava_url}
                         typeOfRequest={c.isVerified ? 'Reported' : 'Verification request'}
                         status={c.isVerified ? 'Verified' : 'Not verified'}
-                        industries={c.industries}
-                        technologies={c.technologies}
-                        details={c.description}
+                        industries={c.industries.map(i => i.name)}
+                        technologies={c.technologies.map(i => i.name)}
+                        details={getDescriptionForCompany(c)}
                         onCommunicateClick={() => {
                             window.location.href = "/chats"
                         }}

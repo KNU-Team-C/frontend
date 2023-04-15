@@ -26,19 +26,19 @@ const adminCompaniesData = (state = initialState, action) => {
         case getAdminCompaniesRoutine.SUCCESS:
             return {
                 ...state,
-                companies: action.payload,
+                companies: action.payload || [],
                 companiesLoading: false,
             }
         case getAdminIndustriesRoutine.SUCCESS:
             return {
                 ...state,
-                industries: action.payload,
+                industries: action.payload || [],
                 industriesLoading: false,
             }
         case getAdminTechnologiesRoutine.SUCCESS:
             return {
                 ...state,
-                technologies: action.payload,
+                technologies: action.payload || [],
                 technologiesLoading: false,
             }
         case getAdminIndustriesRoutine.TRIGGER:
