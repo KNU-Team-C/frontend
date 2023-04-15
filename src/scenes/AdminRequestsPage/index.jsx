@@ -10,9 +10,13 @@ import Tab from '@mui/material/Tab';
 import {connect} from "react-redux";
 import {Loader} from "semantic-ui-react";
 import emptyListImage from "../../assets/empty-list.png";
-import {getAdminRequestsCompaniesRoutine, getAdminRequestsUsersRoutine} from "./routines";
-import {setAdminCompanyVerifiedRoutine, setAdminCompanyVerifyDismissRoutine} from "../AdminCompanySearch/routines";
-import {setUserBannedRoutine} from "../AdminUserSearch/routines";
+import {
+    getAdminRequestsCompaniesRoutine,
+    getAdminRequestsUsersRoutine,
+    setAdminCompanyVerifyDismissRoutine,
+    setAdminCompanyVerifiedRoutine,
+    setUserBannedRoutine
+} from "./routines";
 import GenericCard from "../../components/GenericCard";
 
 

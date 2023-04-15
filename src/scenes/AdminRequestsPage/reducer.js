@@ -1,6 +1,10 @@
-import {getAdminRequestsCompaniesRoutine, getAdminRequestsUsersRoutine} from './routines';
-import {setAdminCompanyVerifiedRoutine, setAdminCompanyVerifyDismissRoutine} from "../AdminCompanySearch/routines";
-import {setUserBannedRoutine} from "../AdminUserSearch/routines";
+import {
+    getAdminRequestsCompaniesRoutine,
+    getAdminRequestsUsersRoutine,
+    setAdminCompanyVerifyDismissRoutine,
+    setAdminCompanyVerifiedRoutine,
+    setUserBannedRoutine
+} from './routines';
 
 const initialState = {
     usersLoading: true,

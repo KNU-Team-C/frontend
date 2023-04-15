@@ -61,16 +61,3 @@ export const setCompanyVerified = async ({companyId}) => {
 
     return result;
 }
-
-export const setCompanyVerifyDismiss = async ({companyId}) => {
-    const endpoint = '/admin/company/' + companyId + '/verify_request_cancel'
-    const result = await callWebApi({
-        endpoint: endpoint,
-        type: 'POST'
-    }).then((response) => {
-        return response.json();
-    })
-    result.id = companyId
-
-    return result;
-}
