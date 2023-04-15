@@ -36,7 +36,7 @@ const App = () => (
             <Route exact path="/projects" component={ProjectsPage} />
             <Route exact path="/profile/:id"
                    render={(props) => <ProfilePage id={props.match.params.id} own={false}/>}/>
-            <Route exact path="/my_profile" component={() => <ProfilePage own={true}/>}/>
+            <Route exact path="/personal-profile" component={() => <ProfilePage own={true}/>}/>
             <Route exact path="/signin" component={SignInPage} />
             <Route exact path="/signup" component={SignUpPage} />
             <Route exact path="/chats" component={ChatsPage} />
