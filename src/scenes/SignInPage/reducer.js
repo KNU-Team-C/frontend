@@ -8,6 +8,7 @@ const initialState = {
 	email: '',
 	phoneNumber: '',
 	id: '',
+	isStaff: false,
 }
 
 const authData = (state = initialState, action) => {
@@ -26,7 +27,8 @@ const authData = (state = initialState, action) => {
 				firstName: action.payload['first_name'],
 				lastName: action.payload['last_name'],
 				email: action.payload['email'],
-				phoneNumber: action.payload['phoneNumber']
+				phoneNumber: action.payload['phone_number'],
+				isStaff: action.payload['is_staff'],
 			}
 
 		case signUpRoutine.FAILURE:

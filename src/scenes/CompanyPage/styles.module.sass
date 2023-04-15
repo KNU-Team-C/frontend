@@ -1,0 +1,165 @@
+@import 'src/styles/variables'
+
+.company_container
+  min-height: calc(100vh - $header-height - $footer-height)
+
+.right_column
+  margin-left: 5em
+  display: flex
+  flex-direction: column 
+  height:100%
+  width: 60vw
+@media (max-width: 768px)
+  .right_column
+    margin-left: inherit
+    display: flex
+    flex-direction: column
+    width: 100vw
+
+.border_top
+  border: none
+
+.ico_view
+  height: 2.5em
+  width: 2.5em
+  border-radius: 10px
+  margin-right: 0.5rem
+  cursor: pointer
+  
+.info_row  
+  align-items: center
+  margin-top: 0.9rem
+  display: flex
+
+.label_text
+  font-size: inherit
+  font-color:$black
+
+.label_text_2
+  font-size: inherit
+  font-weight: bold
+  font-color:$black
+  margin-right: 0.5rem
+  margin-left: 0.3rem
+
+.btn
+  display: flex
+  background-color: $heliotrope
+  color: white
+  border-radius: 1.5rem
+  border: 0.1rem solid transparent
+  font-size: 1.3em
+  font-weight: 500
+  padding: 0.7rem 1.3rem 0.7rem 1.3rem
+  margin-right: 1rem
+
+
+.btn_reverted
+  display: flex
+  background-color: white
+  color: $heliotrope
+  border-radius: 1.5rem
+  border: 0.1rem solid $heliotrope
+  font-size: 1.3em
+  font-weight: 500
+  padding: 0.7rem 1.3rem 0.7rem 1.3rem
+  margin-right: 1rem
+
+.left_column
+  display: flex
+  flex-direction: column 
+  height:100%
+  margin-right:10px
+  width: 40vw
+  
+@media (max-width: 768px)
+  .left_column
+    display: flex
+    flex-direction: column
+    width: 90vw
+
+.centered
+  display: flex
+  flex-direction: column 
+  justify-content: center
+  align-items: center
+
+.ico_view
+  height: 2.5em
+  width: 2.5em
+  margin-right: 5px
+  cursor: pointer
+
+.info_row_input
+  word-wrap: break-word
+  overflow-wrap: break-word
+  width: 100%
+  border: none
+  margin-right: 5px
+  margin-top: 0.2rem
+  margin-bottom: 0.2rem
+
+.description_input
+  min-height: 100px
+  line-height: 1.4rem
+  resize: none
+  background: $grey-2
+  padding: 0.5rem
+
+.company_img
+  width: 15rem
+  height: 15rem
+  border-radius: 100%
+
+.header
+  font-size: 2.5em
+  font-weight: 700
+  border: none
+  color: $black
+  margin-bottom: 0.1rem
+
+.header2
+  color: $dodger-blue-dark
+  font-weight: 600
+  border: none
+  font-size: 1.1em
+  margin-bottom: 1rem
+
+.custom_file_input
+  background-color: $dodger-blue
+  color: $white
+  margin-top: 1rem
+  padding: 0.8rem 1rem 0.8rem 1rem
+  cursor: pointer
+  text-align: center
+  
+  input
+    position: absolute
+    top: 0
+    left: 0
+    width: 0
+    height: 0
+    opacity: 0
+    cursor: pointer
+  
+  span    
+    cursor: pointer
+
+.main_row
+  display: flex
+  flex-direction: row
+  height: 100%
+  width: 100vw
+  padding: $indent $indent 5rem $indent
+  
+@media (max-width: 768px)
+  .main_row
+    display: flex
+    flex-direction: column
+    height: 100%
+
+.editable
+  border: 0.15rem solid $dodger-blue-light
+
+.disabled
+  border: 0.15rem solid transparent

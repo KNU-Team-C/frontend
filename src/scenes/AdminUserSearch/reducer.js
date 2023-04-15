@@ -1,8 +1,19 @@
-import {getAdminUsersRoutine} from './routines';
+import {getAdminUsersRoutine, setUserBannedRoutine} from './routines';
 
 const initialState = {
     usersLoading: true,
     users: [],
+}
+
+function updateUser(users, user) {
+    const indexToUpdate = users.findIndex((element) => {
+        return element.id === user.is;
+    });
+
+    if (indexToUpdate !== -1) {
+        users[indexToUpdate] = user;
+    }
+    return users
 }
 
 const adminUsersData = (state = initialState, action) => {
@@ -23,6 +34,19 @@ const adminUsersData = (state = initialState, action) => {
             return {
                 ...state,
                 usersLoading: false,
+            }
+        case setUserBannedRoutine.SUCCESS:
+            return {
+                ...state,
+                users: updateUser(state.users, action.payload),
+            }
+        case setUserBannedRoutine.TRIGGER:
+            return {
+                ...state,
+            }
+        case setUserBannedRoutine.FAILURE:
+            return {
+                ...state,
             }
         default: {
             return state;

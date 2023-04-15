@@ -32,7 +32,7 @@ export const getCompanies = async ({query, industries, technologies, banned, rep
 
 export const getTechnologies = async (payload) => {
     const result = await callWebApi({
-        endpoint: payload?.query === undefined ? '/admin/technologies' : `/admin/technologies?search_query=${payload?.query}`,
+        endpoint: payload?.query === undefined ? '/technologies' : `/technologies?search_query=${payload?.query}`,
         type: 'GET'
     }).then((response) => {
         return response.json();
@@ -44,11 +44,37 @@ export const getTechnologies = async (payload) => {
 
 export const getIndustries = async (payload) => {
     const result = await callWebApi({
-        endpoint: payload?.query === undefined ? '/admin/industries' : `/admin/industries?search_query=${payload?.query}`,
+        endpoint: payload?.query === undefined ? '/industries' : `/industries?search_query=${payload?.query}`,
         type: 'GET'
     }).then((response) => {
         return response.json();
     })
 
     return result.industries;
+}
+
+export const setCompanyVerified = async ({companyId}) => {
+    const endpoint = '/admin/company/' + companyId + '/verify'
+    const result = await callWebApi({
+        endpoint: endpoint,
+        type: 'POST'
+    }).then((response) => {
+        return response.json();
+    })
+    result.id = companyId
+
+    return result;
+}
+
+export const setCompanyVerifyDismiss = async ({companyId}) => {
+    const endpoint = '/admin/company/' + companyId + '/verify_request_cancel'
+    const result = await callWebApi({
+        endpoint: endpoint,
+        type: 'GET'
+    }).then((response) => {
+        return response.json();
+    })
+    result.id = companyId
+
+    return result;
 }

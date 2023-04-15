@@ -1,26 +1,34 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.sass';
 import TagFilter from "../../components/TagFilter";
 import Tag from "../../components/Tag";
 import SearchField from "../../components/SearchField";
 import classNames from "../../commons/classnames";
 import AdminCompanyCard from "../../components/AdminCompanyCard";
-import {connect} from "react-redux";
-import {Loader} from "semantic-ui-react";
+import { connect } from "react-redux";
+import { Loader } from "semantic-ui-react";
 import emptyListImage from "../../assets/empty-list.png";
-import {getAdminCompaniesRoutine, getAdminIndustriesRoutine, getAdminTechnologiesRoutine} from "./routines";
+import {
+    getAdminCompaniesRoutine,
+    getAdminIndustriesRoutine,
+    getAdminTechnologiesRoutine,
+    setAdminCompanyVerifiedRoutine,
+    setAdminCompanyVerifyDismissRoutine
+} from "./routines";
 
 const AdminCompanyPage = ({
-                              companiesLoading,
-                              technologiesLoading,
-                              industriesLoading,
-                              companies,
-                              industries,
-                              technologies,
-                              getCompanies,
-                              getIndustries,
-                              getTechnologies,
-                          }) => {
+    companiesLoading,
+    technologiesLoading,
+    industriesLoading,
+    companies,
+    industries,
+    technologies,
+    getCompanies,
+    getIndustries,
+    getTechnologies,
+    setAdminCompanyVerified,
+    setAdminCompanyVerifyDismiss,
+}) => {
 
     const [searchText, setSearchText] = useState(''); // input text before clicking on search
     const [currentText, setCurrentText] = useState(searchText); // text with which the results are filtered
@@ -50,7 +58,6 @@ const AdminCompanyPage = ({
         return values.includes(id) ? [...values.filter(v => v !== id)] : [...values, id];
     }
 
-    console.log('INDUSTRIES', industriesLoading, industriesLoading, companiesLoading);
     return (
         <div className={styles.home_container}>
             <div className={classNames(styles.vertical, styles.filters)}>
@@ -114,26 +121,26 @@ const AdminCompanyPage = ({
                         });
                     }}
                     onInput={(e) => {
-                        getIndustries({query: e.target.value});
+                        getIndustries({ query: e.target.value });
                     }}
                 >
-                    <Loader active={industriesLoading} inline/>
+                    <Loader active={industriesLoading} inline />
                     {industries.map(ind => (
                         <Tag key={ind.id}
-                             isSelected={selectedIndustries.includes(ind.id)}
-                             onSelectionChange={() => {
-                                 const ids = addOrRemoveIfPresent(ind.id, selectedIndustries);
-                                 setSelectedIndustries(ids);
-                                 getCompanies({
-                                     query: currentText,
-                                     banned: bannedSelected,
-                                     reported: reportedSelected,
-                                     industries: ids,
-                                     technologies: selectedTechnologies
-                                 });
-                             }}
-                             text={ind.name}
-                             amount={ind.amount}
+                            isSelected={selectedIndustries.includes(ind.id)}
+                            onSelectionChange={() => {
+                                const ids = addOrRemoveIfPresent(ind.id, selectedIndustries);
+                                setSelectedIndustries(ids);
+                                getCompanies({
+                                    query: currentText,
+                                    banned: bannedSelected,
+                                    reported: reportedSelected,
+                                    industries: ids,
+                                    technologies: selectedTechnologies
+                                });
+                            }}
+                            text={ind.name}
+                            amount={ind.amount}
                         />
                     ))}
                 </TagFilter>
@@ -151,26 +158,26 @@ const AdminCompanyPage = ({
                         });
                     }}
                     onInput={(e) => {
-                        getTechnologies({query: e.target.value});
+                        getTechnologies({ query: e.target.value });
                     }}
                 >
-                    <Loader active={technologiesLoading} inline/>
+                    <Loader active={technologiesLoading} inline />
                     {technologies.map(tech => (
                         <Tag key={tech.id}
-                             isSelected={selectedTechnologies.includes(tech.id)}
-                             onSelectionChange={() => {
-                                 const ids = addOrRemoveIfPresent(tech.id, selectedTechnologies);
-                                 setSelectedTechnologies(ids);
-                                 getCompanies({
-                                     query: currentText,
-                                     banned: bannedSelected,
-                                     reported: reportedSelected,
-                                     industries: selectedIndustries,
-                                     technologies: ids
-                                 });
-                             }}
-                             text={tech.name}
-                             amount={tech.amount}
+                            isSelected={selectedTechnologies.includes(tech.id)}
+                            onSelectionChange={() => {
+                                const ids = addOrRemoveIfPresent(tech.id, selectedTechnologies);
+                                setSelectedTechnologies(ids);
+                                getCompanies({
+                                    query: currentText,
+                                    banned: bannedSelected,
+                                    reported: reportedSelected,
+                                    industries: selectedIndustries,
+                                    technologies: ids
+                                });
+                            }}
+                            text={tech.name}
+                            amount={tech.amount}
                         />
                     ))}
                 </TagFilter>
@@ -181,22 +188,30 @@ const AdminCompanyPage = ({
                     onInput={(e) => setSearchText(e.target.value)}
                     onSearchClick={() => searchCompanies()}
                 />
-                <Loader active={companiesLoading} inline/>
+                <Loader active={companiesLoading} inline />
                 {!companiesLoading && (companies === undefined || companies.length === 0) && <>
-                    <img src={emptyListImage} className={styles.placeholder_image}/>
+                    <img src={emptyListImage} className={styles.placeholder_image} />
                     <p className={styles.placeholder_text}>No results found ...</p>
                 </>}
 
                 {companies.map(c => (
                     <AdminCompanyCard
                         key={c.id}
-                        id={c.id}
                         companyName={c.name}
                         image={c.ava_url}
                         status={c.isVerified ? 'Verified' : 'Not verified'}
-                        industries={c.industries}
-                        technologies={c.technologies}
+                        industries={c.industries.map(i => i.name)}
+                        technologies={c.technologies.map(t => t.name)}
                         details={c.description}
+                        onCommunicateClick={() => {
+                            window.location.href = "/chats"
+                        }}
+                        onVerifyClick={() => {
+                            setAdminCompanyVerified({companyId: c.id})
+                        }}
+                        onDeclineClick={() => {
+                            setAdminCompanyVerifyDismiss({companyId: c.id})
+                        }}
                     />
                 ))}
             </div>
@@ -217,6 +232,8 @@ const mapDispatchToProps = {
     getCompanies: getAdminCompaniesRoutine,
     getTechnologies: getAdminTechnologiesRoutine,
     getIndustries: getAdminIndustriesRoutine,
+    setAdminCompanyVerified: setAdminCompanyVerifiedRoutine,
+    setAdminCompanyVerifyDismiss: setAdminCompanyVerifyDismissRoutine,
 }
 
 
