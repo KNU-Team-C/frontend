@@ -8,7 +8,7 @@ import * as token from  '../../helpers/token.helper';
 function* signIn({ payload }) {
     try {
         const response = yield call(() => service.signIn(payload));
-        token.setToken(response.token, response.id);
+        token.setToken(response.token, response.id, response['is_staff']);
         yield put(signInRoutine.success(response));
         history.push('/home');
     } catch (error) {
