@@ -42,9 +42,11 @@ const Header = () => {
                         />
                     }>
                     <Dropdown.Menu className={styles.user_dropdown_menu} direction='left'>
-                        <Dropdown.Item icon='setting' content='Settings' />
+                        <Dropdown.Item className={styles.dropdown_item} icon='address card' content='Profile' onClick={() => {
+                            history.push('/personal-profile');
+                        }} />
                         <Dropdown.Divider />
-                        <Dropdown.Item icon='sign out' text='Sign out' onClick={() => {
+                        <Dropdown.Item className={styles.dropdown_item} icon='sign out' text='Sign out' onClick={() => {
                             clearToken();
                             history.push('/');
                         }} />

@@ -1,0 +1,140 @@
+@import 'src/styles/variables'
+
+.horizontal
+  display: flex
+  flex-direction: row
+
+.vertical
+  display: flex
+  flex-direction: column
+
+.centered
+  display: flex
+  flex-direction: column 
+  justify-content: center
+  align-items: center
+
+.child_center_vertical
+  child-align: middle
+  align-items: center
+  align-content: center
+
+.main_container
+  padding: $indent 7rem 5rem 7rem
+  display: flex
+  position: relative
+  flex-direction: column
+  width: 100%
+  min-height: calc(100vh - $header-height - $footer-height)
+  align-items: center
+
+.profile_card
+  display: flex
+  flex-direction: column
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px
+  padding: 3rem
+
+.avatar_image
+  max-height: 12rem
+  max-width: 12rem
+  height: 12rem
+  width: 12rem
+  object-fit: cover
+  border-radius: 100%
+  flex: 1
+
+.contacts_container
+  margin-left: 3rem
+  gap: 1rem
+  flex: 1
+
+.name_text
+  font-family: inherit
+  font-size: 2.5em
+  font-weight: 800
+  color: $black
+  border-width: 0
+
+.contacts_text
+  font-family: inherit
+  font-size: 1.2em
+  border-width: 0
+
+.contacts_header
+  font-weight: 600
+  font-size: 1.2em
+  margin-left: 0.4rem
+
+.text_input
+  margin: 0 0.4rem
+
+.button_save
+  margin-top: 2rem
+  text-align: center
+  padding: 0.7rem
+  font-size: 1.2em
+  color: $white
+  border-radius: 5px
+  border-width: 0
+  background-color: $heliotrope
+
+.btn
+  display: flex
+  background-color: $heliotrope
+  color: white
+  border-radius: 1.5rem
+  border: 0.1rem solid transparent
+  font-size: 1.3em
+  font-weight: 500
+  padding: 0.7rem 1.3rem 0.7rem 1.3rem
+  margin-right: 1rem
+
+.btn_reverted
+  display: flex
+  background-color: white
+  color: $heliotrope
+  border-radius: 1.5rem
+  border: 0.1rem solid $heliotrope
+  font-size: 1.3em
+  font-weight: 500
+  padding: 0.7rem 1.3rem 0.7rem 1.3rem
+
+.editable
+  border: 0.15rem solid $dodger-blue-light
+  background-color: transparent
+
+.disabled
+  border: 0.15rem solid transparent
+  background-color: transparent
+
+.custom_file_input
+  width: 12rem
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-right: 3rem
+
+  div
+    background-color: $dodger-blue
+    color: $white
+    padding: 0.8rem 1rem 0.8rem 1rem
+    cursor: pointer
+    text-align: center
+
+  input
+    position: absolute
+    top: 0
+    left: 0
+    width: 0
+    height: 0
+    opacity: 0
+    cursor: pointer
+
+  span
+    cursor: pointer
+
+.controls 
+  margin-top: 2rem
+  display: flex
+  align-items: center
+
