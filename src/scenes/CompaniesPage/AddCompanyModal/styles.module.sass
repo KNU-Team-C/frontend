@@ -1,0 +1,65 @@
+@import 'src/styles/variables'
+
+.modal
+	height: auto!important
+	top: auto!important
+	left: auto!important
+	bottom: auto!important
+	right: auto!important
+
+.header
+	font-size: 1.8em!important
+	font-weight: 700!important
+	font-family: inherit!important
+	text-align: center!important
+
+.content
+	display: flex!important
+	flex-direction: column
+	align-items: center!important
+
+.input_field
+	position: relative
+	margin-bottom: 1.25rem
+
+	input
+		border: none
+		border-bottom: 0.07rem solid $grey1
+		outline: none
+
+	label
+		position: absolute
+		top: 0
+		left: 0
+		color: $grey1
+		display: flex
+		align-items: center
+		cursor: text
+		transition: 0.2s ease-in-out
+
+	input,label
+		font-size: 1em
+		width: 30rem
+		height: 3rem
+
+	input:focus + label,
+	input:valid + label
+		color: $grey2
+		font-size: 0.75em
+		top: -25px
+		pointer-events: none
+
+	input:focus,
+	input:valid
+		border-bottom: 0.07rem solid $grey2
+
+.input_area
+	outline: none
+	width: 30rem	
+	padding: 1rem
+	min-height: 10rem
+	margin-top: 1rem
+	
+.actions
+	display: flex!important
+	justify-content: center!important

@@ -8,6 +8,7 @@ import CompanyCard from '../../components/CompanyCard';
 import classNames from '../../commons/classnames';
 import emptyListImage from '../../assets/empty-list.png';
 import { connect } from 'react-redux';
+import AddCompanyModal from './AddCompanyModal';
 import { getCompaniesRoutine, getIndustriesRoutine, getTechnologiesRoutine } from './routines';
 
 const CompaniesPage = ({
@@ -33,6 +34,7 @@ const CompaniesPage = ({
 	const [currentText, setCurrentText] = useState(searchText); // text with which the results are filtered
 	const [selectedIndustries, setSelectedIndustries] = useState([]);
 	const [selectedTechnologies, setSelectedTechnologies] = useState([]);
+	const [modalOpen, setModalOpen] = useState(true);
 
 	console.log('INDUSTRIES', selectedIndustries);
 	console.log('TECHNOLOGIES', selectedTechnologies);
@@ -53,7 +55,11 @@ const CompaniesPage = ({
 
 	return (
 		<div className={styles.companies_container}>
-			{own && <button className={styles.create_company_btn}>+</button>}
+			{own && <AddCompanyModal open={modalOpen} setOpen={setModalOpen} />}
+			{own && <button
+				className={styles.create_company_btn}
+				onClick={() => setModalOpen(true)}
+			>+</button>}
 			<div className={classNames(styles.vertical, styles.filters)}>
 				<TagFilter
 					className={styles.tag_filter}
@@ -112,7 +118,7 @@ const CompaniesPage = ({
 					onSearchClick={() => searchCompanies()} />
 				<Loader active={companiesLoading} inline />
 				{!companiesLoading && companies.length === 0 && <>
-					<img src={emptyListImage} className={styles.placeholder_image} /> 
+					<img src={emptyListImage} className={styles.placeholder_image} />
 					<p className={styles.placeholder_text}>No results found ...</p>
 				</>}
 				{companies.map(c => (
