@@ -4,11 +4,13 @@ import ChatInfo from '../../components/ChatComponents/ChatInfo';
 import ChatMessage from "../../components/ChatComponents/ChatMessage";
 import ChatClient from "./client";
 import {getToken} from "../../helpers/token.helper";
+import {getChats} from "./service";
 // import {getToken} from "../../helpers/token.helper";
 
 function ChatPage() {
     const [messages, setMessages] = useState([]);
     const [client, setClient] = useState(null);
+    const [chats, setChats] = useState([]);
 
     useEffect(() => {
 
@@ -48,6 +50,13 @@ function ChatPage() {
         }
     }, [client]);
 
+    // setChats([...chats, getChats()])
+    useEffect(async () => {
+        const chats = await getChats();
+        console.log(chats);
+        setChats(chats);
+    }, []);
+
     const sendMessage = () => {
         setMessages([...messages, { text: "Hello, how are you?", time: "10:00" }]);
     };
@@ -58,27 +67,13 @@ function ChatPage() {
                 <div className={styles.chatsList}>
                     <div className={styles.chatsListHeader}>Chats</div>
                     <div className={styles.chatItems}>
-                        <ChatInfo user={
-                            {
-                                name: "John Doe",
-                                icon: "https://cdn-icons-png.flaticon.com/512/3/3729.png",
-                                lastMessage: "Hello, how are you?"
-                            }
-                        }></ChatInfo>
-                        <ChatInfo user={
-                            {
-                                name: "John Doe",
-                                icon: "https://cdn-icons-png.flaticon.com/512/3/3729.png",
-                                lastMessage: "Hello, how are you?"
-                            }
-                        }></ChatInfo>
-                        <ChatInfo user={
-                            {
-                                name: "John Doe",
-                                icon: "https://cdn-icons-png.flaticon.com/512/3/3729.png",
-                                lastMessage: "Hello, how are you?"
-                            }
-                        }></ChatInfo>
+                        {
+                            chats.map((chat, index) => {
+                                return (
+                                    <ChatInfo key={index} user={{ icon: chat.ava_url, name: chat.chat_name}} ></ChatInfo>
+                                )
+                            })
+                        }
                     </div>
                 </div>
                 <div className={styles.chatMessages}>
