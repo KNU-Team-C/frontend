@@ -5,6 +5,7 @@ import companiesData from './scenes/CompaniesPage/reducer';
 import adminCompaniesData from "./scenes/AdminCompanySearch/reducer";
 import adminUsersData from "./scenes/AdminUserSearch/reducer";
 import adminRequestsData from "./scenes/AdminRequestsPage/reducer";
+import profileData from "./scenes/ProfilePage/reducer";
 import companyData from "./scenes/CompanyPage/reducer";
 import projectsData from "./scenes/ProjectsPage/reducer";
 
@@ -17,4 +18,5 @@ export default combineReducers({
     adminRequestsData,
     companyData,
     projectsData,
+    profileData,
 });
