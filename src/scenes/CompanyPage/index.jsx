@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ScreenLoader from '../../components/ScreenLoader';
 import { USER_ID } from '../../commons/constants';
 import styles from './styles.module.sass';
-import { getCompanyRoutine, modifyCompanyRoutine } from './routines';
+import { getCompanyRoutine, modifyCompanyRoutine, uploadImageRoutine } from './routines';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import classNames from '../../commons/classnames';
@@ -11,12 +11,16 @@ import phoneIco from '../../assets/phone_ico.png';
 import { validate, emailRegex } from '../../helpers/validation.helper';
 import { history } from '../../helpers/history.helper';
 import { toastr } from 'react-redux-toastr';
+import placeholder from '../../assets/image-placeholder.png';
+import loader from '../../assets/loader.gif';
 
 const CompanyPage = ({
 	loading,
 	company,
 	getCompany,
 	modifyCompany,
+	imageLoading,
+	uploadImage,
 }) => {
 
 	const { id } = useParams();
@@ -83,10 +87,19 @@ const CompanyPage = ({
 			<div className={styles.main_row}>
 				<div className={styles.left_column}>
 					<div className={styles.centered}>
-						<img className={styles.company_img} src={company.logo} />
+						<img className={styles.company_img} src={imageLoading ? loader : company.logo || placeholder} />
 						{ownCompany && <label className={styles.custom_file_input}>
-							<input type="file" />
-							<span>Upload photo</span>
+							<input
+								type="file"
+								onChange={(e) => {
+									const f = e.target.files[0];
+									console.log('UPLOADING IMAGE', f);
+									uploadImage({
+										id,
+										image: f
+									});
+								}} />
+							<span>Upload image</span>
 						</label>}
 					</div>
 					<div className={styles.info_row}>
@@ -159,12 +172,14 @@ const CompanyPage = ({
 
 const mapStateToProps = (state) => ({
 	company: state.companyData.company,
-	loading: state.companyData.loading
+	loading: state.companyData.loading,
+	imageLoading: state.companyData.imageLoading,
 });
 
 const mapDispatchToProps = {
 	getCompany: getCompanyRoutine,
 	modifyCompany: modifyCompanyRoutine,
+	uploadImage: uploadImageRoutine,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyPage);

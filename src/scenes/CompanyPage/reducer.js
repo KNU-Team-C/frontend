@@ -1,7 +1,8 @@
-import { getCompanyRoutine, modifyCompanyRoutine } from './routines';
+import { getCompanyRoutine, modifyCompanyRoutine, uploadImageRoutine } from './routines';
 
 const initialState = {
 	loading: true,
+	imageLoading: false,
 	company: {
 		address: '',
 		description: '',
@@ -53,6 +54,25 @@ const companyData = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
+			}
+		case uploadImageRoutine.TRIGGER:
+			return {
+				...state,
+				imageLoading: true,
+			}
+		case uploadImageRoutine.FAILURE:
+			return {
+				...state,
+				imageLoading: false,
+			}
+		case uploadImageRoutine.SUCCESS:
+			return {
+				...state,
+				imageLoading: false,
+				company: {
+					...state.company,
+					logo: action.payload['logo']
+				}
 			}
 		default: {
 			return state;
