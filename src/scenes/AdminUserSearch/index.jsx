@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import styles from './styles.module.sass';
-import AdminUserCard from "../../components/AdminUserCard";
 import TagFilter from "../../components/TagFilter";
 import Tag from "../../components/Tag";
 import SearchField from "../../components/SearchField";
@@ -9,6 +8,7 @@ import {connect} from "react-redux";
 import {getAdminUsersRoutine, setUserBannedRoutine} from "./routines";
 import {Loader} from "semantic-ui-react";
 import emptyListImage from "../../assets/empty-list.png";
+import GenericCard from "../../components/GenericCard";
 
 const AdminUserPage = ({
                            usersLoading,
@@ -89,25 +89,49 @@ const AdminUserPage = ({
                     <p className={styles.placeholder_text}>No results found ...</p>
                 </>}
 
-                {users.map(u => (
-                    <AdminUserCard
-                        id={u.id}
-                        username={u.first_name + ' ' + u.last_name}
-                        status={u.status}
-                        image={u.ava_url}
-                        details={u.description}
-                        key={u.id}
-                        onCommunicateClick={() => {
+                {users.map(function (u) {
+
+                    const infoItems = [{
+                        title: 'Status',
+                        content: u.is_blocked ? "Banned" : "Not banned"
+                    }];
+
+                    let cardControls = [{
+                        text: 'Communicate',
+                        className: styles.button_communicate,
+                        onClick: () => {
                             window.location.href = "/chats"
-                        }}
-                        onBanClick={() => {
-                            setUserBanned({userId: u.id, banned: true})
-                        }}
-                        onUnbanClick={() => {
-                            setUserBanned({userId: u.id, banned: false})
-                        }}
-                    />
-                ))}
+                        }
+                    }];
+                    if (u.is_blocked) {
+                        cardControls.push({
+                            text: 'Unban',
+                            className: styles.button_unban,
+                            onClick: () => {
+                                setUserBanned({userId: u.id, banned: false})
+                            }
+                        })
+                    } else {
+                        cardControls.push({
+                            text: 'Ban',
+                            className: styles.button_ban,
+                            onClick: () => {
+                                setUserBanned({userId: u.id, banned: true})
+                            }
+                        })
+                    }
+
+                    return (
+                        <GenericCard
+                            itemHeader={u.first_name + ' ' + u.last_name}
+                            image={u.ava_url}
+                            infoItems={infoItems}
+                            details={u.description}
+                            controls={cardControls}
+                            key={u.id}
+                        />
+                    );
+                })}
             </div>
         </div>
     );

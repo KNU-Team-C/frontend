@@ -7,7 +7,7 @@ const initialState = {
 
 function updateUser(users, user) {
     const indexToUpdate = users.findIndex((element) => {
-        return element.id === user.is;
+        return element.id === user.id;
     });
 
     if (indexToUpdate !== -1) {
@@ -38,7 +38,7 @@ const adminUsersData = (state = initialState, action) => {
         case setUserBannedRoutine.SUCCESS:
             return {
                 ...state,
-                users: updateUser(state.users, action.payload),
+                users: updateUser(state.users, action.payload).slice(),
             }
         case setUserBannedRoutine.TRIGGER:
             return {
