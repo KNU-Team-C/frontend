@@ -36,6 +36,7 @@ const App = () => (
             <Route exact path="/companies" component={CompaniesPage} />
             <Route exact path="/company/:id" component={CompanyPage} />
             <Route exact path="/projects" component={ProjectsPage} />
+            <Route exact path="/company-projects/:companyId" component={ProjectsPage} />
             <Route exact path="/profile/:id"
                    render={(props) => <ProfilePage id={props.match.params.id} own={false}/>}/>
             <Route exact path="/personal-profile" component={() => <ProfilePage own={true}/>}/>

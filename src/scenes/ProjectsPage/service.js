@@ -1,6 +1,6 @@
 import callWebApi from '../../helpers/web.helper';
 
-export const getProjects = async ({ query, industries, technologies }) => {
+export const getProjects = async ({ companyId, query, industries, technologies }) => {
 	let queries = [];
 	if (query && query.length > 0) {
 		queries.push(`search_query=${query}`);
@@ -11,8 +11,9 @@ export const getProjects = async ({ query, industries, technologies }) => {
 	if (technologies && technologies.length > 0) {
 		queries.push(`technologies_ids=${technologies.join()}`)
 	}
-	const endpoint = '/projects' + (queries.length > 0 ? `?${queries.join('&')}` : '');
-	console.log('ENDPOINT', endpoint);
+	const path = (companyId !== undefined) ? `/companies/${companyId}/projects` : '/projects';
+	const endpoint = path + (queries.length > 0 ? `?${queries.join('&')}` : '');
+
 	const result = await callWebApi({
 		endpoint,
 		type: 'GET',
