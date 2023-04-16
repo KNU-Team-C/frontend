@@ -9,19 +9,21 @@ import classNames from '../../commons/classnames';
 import emptyListImage from '../../assets/empty-list.png';
 import { connect } from 'react-redux';
 import AddCompanyModal from './AddCompanyModal';
-import { getCompaniesRoutine, getIndustriesRoutine, getTechnologiesRoutine } from './routines';
+import { addCompanyRoutine, getCompaniesRoutine, getIndustriesRoutine, getTechnologiesRoutine } from './routines';
 
 const CompaniesPage = ({
 	own,
 	companiesLoading,
 	technologiesLoading,
 	industriesLoading,
+	addCompanyLoading,
 	companies,
 	industries,
 	technologies,
 	getCompanies,
 	getIndustries,
 	getTechnologies,
+	addCompany,
 }) => {
 
 	useEffect(() => {
@@ -34,10 +36,7 @@ const CompaniesPage = ({
 	const [currentText, setCurrentText] = useState(searchText); // text with which the results are filtered
 	const [selectedIndustries, setSelectedIndustries] = useState([]);
 	const [selectedTechnologies, setSelectedTechnologies] = useState([]);
-	const [modalOpen, setModalOpen] = useState(true);
-
-	console.log('INDUSTRIES', selectedIndustries);
-	console.log('TECHNOLOGIES', selectedTechnologies);
+	const [modalOpen, setModalOpen] = useState(false);
 
 	const searchCompanies = () => {
 		setCurrentText(searchText);
@@ -55,7 +54,11 @@ const CompaniesPage = ({
 
 	return (
 		<div className={styles.companies_container}>
-			{own && <AddCompanyModal open={modalOpen} setOpen={setModalOpen} />}
+			{own && <AddCompanyModal
+				open={modalOpen}
+				setOpen={setModalOpen}
+				addCompany={addCompany}
+				companyLoading={addCompanyLoading} />}
 			{own && <button
 				className={styles.create_company_btn}
 				onClick={() => setModalOpen(true)}
@@ -145,12 +148,14 @@ const mapStateToProps = (state) => ({
 	companiesLoading: state.companiesData.companiesLoading,
 	industriesLoading: state.companiesData.industriesLoading,
 	technologiesLoading: state.companiesData.technologiesLoading,
+	addCompanyLoading: state.companiesData.addCompanyLoading,
 });
 
 const mapDispatchToProps = {
 	getCompanies: getCompaniesRoutine,
 	getTechnologies: getTechnologiesRoutine,
 	getIndustries: getIndustriesRoutine,
+	addCompany: addCompanyRoutine,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompaniesPage);

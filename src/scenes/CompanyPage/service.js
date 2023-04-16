@@ -32,3 +32,13 @@ export const modifyCompany = async ({
 
 	return result.json();
 }
+
+export const uploadImage = async (id, image) => {
+	const result = await callWebApi({
+		endpoint: `/companies/${id}/image`,
+		type: 'POST',
+		attachment: image
+	});
+
+	return result.json();
+}

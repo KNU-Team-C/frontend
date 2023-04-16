@@ -12,6 +12,7 @@
 	font-weight: 700!important
 	font-family: inherit!important
 	text-align: center!important
+	background: $blue-light!important
 
 .content
 	display: flex!important
@@ -24,7 +25,7 @@
 
 	input
 		border: none
-		border-bottom: 0.07rem solid $grey1
+		border-bottom: 0.07rem solid $grey01
 		outline: none
 
 	label
@@ -35,7 +36,7 @@
 		display: flex
 		align-items: center
 		cursor: text
-		transition: 0.2s ease-in-out
+		transition: 0.1s ease-in-out
 
 	input,label
 		font-size: 1em
@@ -51,7 +52,7 @@
 
 	input:focus,
 	input:valid
-		border-bottom: 0.07rem solid $grey2
+		border-bottom: 0.07rem solid $grey01
 
 .input_area
 	outline: none
@@ -59,7 +60,18 @@
 	padding: 1rem
 	min-height: 10rem
 	margin-top: 1rem
-	
+	resize: none
+	border: 0.05rem solid $grey01
+
 .actions
 	display: flex!important
 	justify-content: center!important
+	background: $blue-light!important
+
+.input_invalid
+	border-bottom: 0.07rem solid $pomegranate!important
+	width: 29rem!important
+
+.invalid_icon
+	color: $pomegranate!important
+	width: 1rem!important

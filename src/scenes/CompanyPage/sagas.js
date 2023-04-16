@@ -1,5 +1,5 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { getCompanyRoutine, modifyCompanyRoutine } from './routines';
+import { getCompanyRoutine, modifyCompanyRoutine, uploadImageRoutine } from './routines';
 import { toastr } from 'react-redux-toastr';
 import * as service from './service';
 
@@ -31,9 +31,24 @@ function* watchModifyCompany() {
     yield takeEvery(modifyCompanyRoutine.TRIGGER, modifyCompany);
 }
 
+function* uploadImage({ payload }) {
+    try {
+        const response = yield call(() => service.uploadImage(payload.id, payload.image));
+        yield put(uploadImageRoutine.success(response));
+    } catch (error) {
+        yield put(uploadImageRoutine.failure(error.message));
+        toastr.error('Error appeared', 'Could not upload image');
+    }
+}
+
+function* watchUploadImage() {
+    yield takeEvery(uploadImageRoutine.TRIGGER, uploadImage);
+}
+
 export default function* companySagas() {
     yield all([
         watchGetCompany(),
         watchModifyCompany(),
+        watchUploadImage(),
     ]);
 }

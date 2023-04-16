@@ -1,6 +1,6 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { toastr } from 'react-redux-toastr';
-import { getCompaniesRoutine, getIndustriesRoutine, getTechnologiesRoutine } from './routines';
+import { addCompanyRoutine, getCompaniesRoutine, getIndustriesRoutine, getTechnologiesRoutine } from './routines';
 import * as service from './service';
 
 function* getCompanies({ payload }) {
@@ -45,10 +45,25 @@ function* watchGetIndustries() {
     yield takeEvery(getIndustriesRoutine.TRIGGER, getIndustries);
 }
 
+function* addCompany({ payload }) {
+    try {
+        const response = yield call(() => service.addCompany(payload));
+        yield put(addCompanyRoutine.success(response));
+    } catch (error) {
+        yield put(addCompanyRoutine.failure(error.message));
+        toastr.error('Error appeared', 'Could not add company');
+    }
+}
+
+function* watchAddCompany() {
+    yield takeEvery(addCompanyRoutine.TRIGGER, addCompany);
+}
+
 export default function* companiesSagas() {
     yield all([
         watchGetCompanies(),
         watchGetTechnologies(),
         watchGetIndustries(),
+        watchAddCompany(),
     ]);
 }
