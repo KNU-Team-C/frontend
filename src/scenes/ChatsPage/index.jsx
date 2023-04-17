@@ -1,10 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './styles.module.sass';
 import ChatInfo from '../../components/ChatComponents/ChatInfo';
 import ChatMessage from "../../components/ChatComponents/ChatMessage";
 import ChatClient from "./client";
 import {getToken} from "../../helpers/token.helper";
 import {createChat, getChats, getMe, getMessages} from "./service";
+
+const parseDate = (date) => {
+    const d = new Date(date);
+    // if today - show time
+    // else - show date
+    const today = new Date();
+    if (d.getDate() === today.getDate() && d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear()) {
+        return `${d.getHours()}:${d.getMinutes()}`;
+    } else if (d.getFullYear() === today.getFullYear()) {
+        return `${d.getDate()}.${d.getMonth()} ${d.getHours()}:${d.getMinutes()}`;
+    } else {
+        return `${d.getDate()}.${d.getMonth()}.${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}`;
+    }
+}
 
 function ChatPage() {
     const [messages, setMessages] = useState([]);
@@ -13,6 +27,7 @@ function ChatPage() {
     const [currentChat, setCurrentChat] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
     const [showCreateChatModal, setShowCreateChatModal] = useState(false);
+    const messagesContainerRef = useRef(null);
 
     const handleCreateChatButtonClick = () => {
         setShowCreateChatModal(true);
@@ -31,7 +46,7 @@ function ChatPage() {
             setMessages((await getMessages(currentChat)).map((message) => {
                 return {
                     text: message.message,
-                    time: message.time,
+                    time: parseDate(message.date),
                     user_id: message.user_id,
                 };
             }));
@@ -39,22 +54,35 @@ function ChatPage() {
     }
 
     useEffect(() => {
-
         const chatClient = new ChatClient(
-            "http://127.0.0.1:5000",
-            {
-                connect: () => {
-                    console.log("Connected to server");
-                },
-                disconnect: () => {
-                    console.log("Disconnected from server");
-                },
-                message: (message) => {
-                    console.log("Message received", message);
-                    updateMessages().then();
-                },
-            }
+            process.env.REACT_APP_SERVER_URL,
+            {}
         );
+
+        chatClient.socket.on("connect", () => {
+            console.log("Connected to server");
+        });
+
+        chatClient.socket.on("disconnect", () => {
+            console.log("Disconnected from server");
+        });
+
+        chatClient.socket.on("message", async (message) => {
+            console.log("Message received", message);
+        });
+
+        chatClient.socket.on("cmessage", async (message) => {
+            console.log("Message received", message);
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                {
+                    text: message.message,
+                    time: parseDate(message.date),
+                    user_id: message.user_id,
+                },
+            ]);
+        });
+
 
         setClient(chatClient);
 
@@ -78,6 +106,12 @@ function ChatPage() {
         setCurrentUser(me.id);
     }, []);
 
+    useEffect(() => {
+        if (messagesContainerRef.current) {
+            const element = messagesContainerRef.current;
+            element.scrollTop = element.scrollHeight;
+        }
+    }, [messages, currentChat]);
 
     const sendMessage = async (message) => {
         client.sendMessage(getToken(), {
@@ -98,8 +132,14 @@ function ChatPage() {
             "sender-id": currentUser,
         });
         setCurrentChat(id);
-        await updateMessages()
     };
+
+    useEffect(async () => {
+        if (currentChat) {
+            await updateMessages();
+        }
+    }, [currentChat]);
+
 
     useEffect(() => {
         if (client && currentChat) {
@@ -123,7 +163,7 @@ function ChatPage() {
                             chats.sort((a, b) => a.id < b.id).map((chat, index) => {
                                 return (
                                     <div key={index} onClick={() => changeChat(chat.id)}>
-                                        <ChatInfo key={index} user={{ icon: chat.ava_url, name: chat.chat_name + ' ' + chat.id}} active={chat.id === currentChat}></ChatInfo>
+                                        <ChatInfo key={index} user={{ icon: chat.ava_url, name: chat.chat_name, lastMessage: chat.last_message}} active={chat.id === currentChat}></ChatInfo>
                                     </div>
                                 )
                             })
@@ -133,7 +173,7 @@ function ChatPage() {
                 <div className={styles.chatMessages}>
                     <div className={styles.chatMessagesHeader}>Name</div>
                     <div className={styles.chatBodyWrapper}>
-                        <div className={styles.chatBody}>
+                        <div className={styles.chatBody} ref={messagesContainerRef}>
                             {
                                 messages.map((message, index) => {
                                     return (
