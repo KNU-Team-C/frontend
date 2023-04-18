@@ -2,9 +2,9 @@ import React from "react";
 
 import styles from "./styles.module.sass";
 
-const ChatInfo = ({user}) => {
+const ChatInfo = ({user, active}) => {
     return (
-        <div className={styles.chatInfo}>
+        <div className={active ? styles.chatInfoActive : styles.chatInfo}>
             <div className={styles.chatIconWrapper}>
                 <img className={styles.chatIcon} src={user.icon}></img>
             </div>
