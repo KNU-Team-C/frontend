@@ -99,7 +99,7 @@ function ChatPage() {
         }
         setChats(chats);
         await updateMessages();
-    }, []);
+    }, [showCreateChatModal]);
 
     useEffect(async () => {
         const me = await getMe();
