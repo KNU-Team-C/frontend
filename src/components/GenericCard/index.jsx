@@ -36,7 +36,7 @@ const GenericCard = (props) => {
                         </div>
                     ))}
                     <div className={styles.horizontal}>
-                        <div className={styles.button_details}>{details}</div>
+                        <pre className={styles.button_details}>{details}</pre>
                     </div>
                 </div>
             </div>

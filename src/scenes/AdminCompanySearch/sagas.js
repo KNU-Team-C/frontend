@@ -5,7 +5,6 @@ import {
     getAdminIndustriesRoutine,
     getAdminTechnologiesRoutine,
     setAdminCompanyVerifiedRoutine,
-    setAdminCompanyVerifyDismissRoutine
 } from './routines';
 import * as service from './service';
 
@@ -22,20 +21,6 @@ function* setCompanyVerified({ payload }) {
 
 function* watchSetCompanyVerified() {
     yield takeEvery(setAdminCompanyVerifiedRoutine.TRIGGER, setCompanyVerified);
-}
-function* setCompanyVerifyDismiss({ payload }) {
-    console.log('setCompanyVerifyDismiss');
-    try {
-        const response = yield call(() => service.setCompanyVerifyDismiss(payload));
-        yield put(setAdminCompanyVerifyDismissRoutine.success(response));
-    } catch (error) {
-        yield put(setAdminCompanyVerifyDismissRoutine.failure(error.message));
-        toastr.error('Error appeared', 'Could not set company verify dismiss');
-    }
-}
-
-function* watchSetCompanyVerifyDismiss() {
-    yield takeEvery(setAdminCompanyVerifyDismissRoutine.TRIGGER, setCompanyVerifyDismiss);
 }
 function* getCompanies({ payload }) {
     console.log('GETTING COMPANIES');
@@ -86,6 +71,5 @@ export default function* authCompaniesSagas() {
         watchGetTechnologies(),
         watchGetIndustries(),
         watchSetCompanyVerified(),
-        watchSetCompanyVerifyDismiss(),
     ]);
 }

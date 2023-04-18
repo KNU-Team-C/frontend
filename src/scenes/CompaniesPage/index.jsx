@@ -8,19 +8,22 @@ import CompanyCard from '../../components/CompanyCard';
 import classNames from '../../commons/classnames';
 import emptyListImage from '../../assets/empty-list.png';
 import { connect } from 'react-redux';
-import { getCompaniesRoutine, getIndustriesRoutine, getTechnologiesRoutine } from './routines';
+import AddCompanyModal from './AddCompanyModal';
+import { addCompanyRoutine, getCompaniesRoutine, getIndustriesRoutine, getTechnologiesRoutine } from './routines';
 
 const CompaniesPage = ({
 	own,
 	companiesLoading,
 	technologiesLoading,
 	industriesLoading,
+	addCompanyLoading,
 	companies,
 	industries,
 	technologies,
 	getCompanies,
 	getIndustries,
 	getTechnologies,
+	addCompany,
 }) => {
 
 	useEffect(() => {
@@ -33,9 +36,7 @@ const CompaniesPage = ({
 	const [currentText, setCurrentText] = useState(searchText); // text with which the results are filtered
 	const [selectedIndustries, setSelectedIndustries] = useState([]);
 	const [selectedTechnologies, setSelectedTechnologies] = useState([]);
-
-	console.log('INDUSTRIES', selectedIndustries);
-	console.log('TECHNOLOGIES', selectedTechnologies);
+	const [modalOpen, setModalOpen] = useState(false);
 
 	const searchCompanies = () => {
 		setCurrentText(searchText);
@@ -53,7 +54,15 @@ const CompaniesPage = ({
 
 	return (
 		<div className={styles.companies_container}>
-			{own && <button className={styles.create_company_btn}>+</button>}
+			{own && <AddCompanyModal
+				open={modalOpen}
+				setOpen={setModalOpen}
+				addCompany={addCompany}
+				companyLoading={addCompanyLoading} />}
+			{own && <button
+				className={styles.create_company_btn}
+				onClick={() => setModalOpen(true)}
+			>+</button>}
 			<div className={classNames(styles.vertical, styles.filters)}>
 				<TagFilter
 					className={styles.tag_filter}
@@ -112,7 +121,7 @@ const CompaniesPage = ({
 					onSearchClick={() => searchCompanies()} />
 				<Loader active={companiesLoading} inline />
 				{!companiesLoading && companies.length === 0 && <>
-					<img src={emptyListImage} className={styles.placeholder_image} /> 
+					<img src={emptyListImage} className={styles.placeholder_image} />
 					<p className={styles.placeholder_text}>No results found ...</p>
 				</>}
 				{companies.map(c => (
@@ -139,12 +148,14 @@ const mapStateToProps = (state) => ({
 	companiesLoading: state.companiesData.companiesLoading,
 	industriesLoading: state.companiesData.industriesLoading,
 	technologiesLoading: state.companiesData.technologiesLoading,
+	addCompanyLoading: state.companiesData.addCompanyLoading,
 });
 
 const mapDispatchToProps = {
 	getCompanies: getCompaniesRoutine,
 	getTechnologies: getTechnologiesRoutine,
 	getIndustries: getIndustriesRoutine,
+	addCompany: addCompanyRoutine,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompaniesPage);

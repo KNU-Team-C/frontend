@@ -1,6 +1,10 @@
-import {getAdminRequestsCompaniesRoutine, getAdminRequestsUsersRoutine} from './routines';
-import {setAdminCompanyVerifiedRoutine, setAdminCompanyVerifyDismissRoutine} from "../AdminCompanySearch/routines";
-import {setUserBannedRoutine} from "../AdminUserSearch/routines";
+import {
+    getAdminRequestsCompaniesRoutine,
+    getAdminRequestsUsersRoutine,
+    setAdminCompanyVerifyDismissRoutine,
+    setAdminCompanyVerifiedRoutine,
+    setUserBannedRoutine
+} from './routines';
 
 const initialState = {
     usersLoading: true,
@@ -11,19 +15,16 @@ const initialState = {
 
 function removeById(items, id) {
     return items.filter((item) => {
-        return item.id === id
+        return item.id !== id
     })
 }
-function updateUser(users, user) {
-    const indexToUpdate = users.findIndex((element) => {
-        return element.id === user.is;
-    });
 
-    if (indexToUpdate !== -1) {
-        users[indexToUpdate] = user;
-    }
-    return users
+function removeUser(users, user) {
+    return users.filter((element) => {
+        return element.id !== user.id;
+    });
 }
+
 const adminRequestsData = (state = initialState, action) => {
     switch (action.type) {
         case getAdminRequestsUsersRoutine.SUCCESS:
@@ -75,7 +76,7 @@ const adminRequestsData = (state = initialState, action) => {
         case setAdminCompanyVerifiedRoutine.SUCCESS:
             return {
                 ...state,
-                companies: removeById(state.companies, action.payload.id),
+                companies: removeById(state.companies, action.payload.id).slice(),
             }
         case setAdminCompanyVerifiedRoutine.TRIGGER:
             return {
@@ -88,7 +89,7 @@ const adminRequestsData = (state = initialState, action) => {
         case setAdminCompanyVerifyDismissRoutine.SUCCESS:
             return {
                 ...state,
-                companies: removeById(state.companies, action.payload.id),
+                companies: removeById(state.companies, action.payload.id).slice(),
             }
         case setAdminCompanyVerifyDismissRoutine.TRIGGER:
             return {
@@ -101,7 +102,7 @@ const adminRequestsData = (state = initialState, action) => {
         case setUserBannedRoutine.SUCCESS:
             return {
                 ...state,
-                users: updateUser(state.users, action.payload),
+                users: removeUser(state.users, action.payload).slice(),
             }
         case setUserBannedRoutine.TRIGGER:
             return {

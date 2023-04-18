@@ -1,4 +1,4 @@
-import { getCompaniesRoutine, getIndustriesRoutine, getTechnologiesRoutine } from './routines';
+import { addCompanyRoutine, getCompaniesRoutine, getIndustriesRoutine, getTechnologiesRoutine } from './routines';
 
 const initialState = {
 	companiesLoading: true,
@@ -7,6 +7,7 @@ const initialState = {
 	companies: [],
 	industries: [],
 	technologies: [],
+	addCompanyLoading: false,
 }
 
 const companiesData = (state = initialState, action) => {
@@ -61,6 +62,22 @@ const companiesData = (state = initialState, action) => {
 			return {
 				...state,
 				companiesLoading: false,
+			}
+		case addCompanyRoutine.TRIGGER:
+			return {
+				...state,
+				addCompanyLoading: true,
+			}
+		case addCompanyRoutine.FAILURE:
+			return {
+				...state,
+				addCompanyLoading: false,
+			}
+		case addCompanyRoutine.SUCCESS:
+			return {
+				...state,
+				companies: [action.payload, ...state.companies],
+				addCompanyLoading: false,
 			}
 		default: {
 			return state;

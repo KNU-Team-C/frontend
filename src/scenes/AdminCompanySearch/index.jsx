@@ -4,7 +4,6 @@ import TagFilter from "../../components/TagFilter";
 import Tag from "../../components/Tag";
 import SearchField from "../../components/SearchField";
 import classNames from "../../commons/classnames";
-import AdminCompanyCard from "../../components/AdminCompanyCard";
 import { connect } from "react-redux";
 import { Loader } from "semantic-ui-react";
 import emptyListImage from "../../assets/empty-list.png";
@@ -13,8 +12,8 @@ import {
     getAdminIndustriesRoutine,
     getAdminTechnologiesRoutine,
     setAdminCompanyVerifiedRoutine,
-    setAdminCompanyVerifyDismissRoutine
 } from "./routines";
+import GenericCard from "../../components/GenericCard";
 
 const AdminCompanyPage = ({
     companiesLoading,
@@ -27,7 +26,6 @@ const AdminCompanyPage = ({
     getIndustries,
     getTechnologies,
     setAdminCompanyVerified,
-    setAdminCompanyVerifyDismiss,
 }) => {
 
     const [searchText, setSearchText] = useState(''); // input text before clicking on search
@@ -194,26 +192,50 @@ const AdminCompanyPage = ({
                     <p className={styles.placeholder_text}>No results found ...</p>
                 </>}
 
-                {companies.map(c => (
-                    <AdminCompanyCard
-                        key={c.id}
-                        companyName={c.name}
-                        image={c.ava_url}
-                        status={c.isVerified ? 'Verified' : 'Not verified'}
-                        industries={c.industries.map(i => i.name)}
-                        technologies={c.technologies.map(t => t.name)}
-                        details={c.description}
-                        onCommunicateClick={() => {
+                {companies.map(function (c) {
+
+                    const infoItems = [{
+                        title: 'Status',
+                        content: c.is_verified ? 'Verified' : 'Not verified',
+                    }, {
+                        title: 'Industries',
+                        content: c.industries.map(i => i.name)
+                    }, {
+                        title: 'Technologies',
+                        content: c.technologies.map(t => t.name)
+                    }
+                    ];
+
+                    let cardControls = [{
+                        text: 'Communicate',
+                        className: styles.button_communicate,
+                        onClick: () => {
                             window.location.href = "/chats"
-                        }}
-                        onVerifyClick={() => {
-                            setAdminCompanyVerified({companyId: c.id})
-                        }}
-                        onDeclineClick={() => {
-                            setAdminCompanyVerifyDismiss({companyId: c.id})
-                        }}
-                    />
-                ))}
+                        }
+                    }];
+
+                    if(!c.is_verified){
+                      cardControls.push( {
+                          text: 'Verify',
+                          className: styles.button_unban,
+                          onClick: () => {
+                              setAdminCompanyVerified({companyId: c.id})
+                          }
+                      })
+                    }
+
+                    return (
+                        <GenericCard
+                            itemHeader={c.name}
+                            status={c.is_verified ? 'Verified' : 'Not verified'}
+                            infoItems={infoItems}
+                            image={c.ava_url}
+                            details={c.description}
+                            controls={cardControls}
+                            key={c.id}
+                        />
+                    );
+                })}
             </div>
         </div>
     );
@@ -233,7 +255,6 @@ const mapDispatchToProps = {
     getTechnologies: getAdminTechnologiesRoutine,
     getIndustries: getAdminIndustriesRoutine,
     setAdminCompanyVerified: setAdminCompanyVerifiedRoutine,
-    setAdminCompanyVerifyDismiss: setAdminCompanyVerifyDismissRoutine,
 }
 
 

@@ -3,7 +3,6 @@ import {
     getAdminIndustriesRoutine,
     getAdminTechnologiesRoutine,
     setAdminCompanyVerifiedRoutine,
-    setAdminCompanyVerifyDismissRoutine
 } from './routines';
 
 const initialState = {
@@ -15,10 +14,14 @@ const initialState = {
     technologies: [],
 }
 
-function removeById(items, id) {
-    return items.filter((item) => {
-        return item.id === id
-    })
+function updateCompany(companies, id) {
+    const indexToUpdate = companies.findIndex((element) => {
+        return element.id === id;
+    });
+    if (indexToUpdate !== -1) {
+        companies[indexToUpdate].is_verified = true;
+    }
+    return companies
 }
 
 const adminCompaniesData = (state = initialState, action) => {
@@ -77,26 +80,13 @@ const adminCompaniesData = (state = initialState, action) => {
         case setAdminCompanyVerifiedRoutine.SUCCESS:
             return {
                 ...state,
-                companies: removeById(state.companies, action.payload.id),
+                companies: updateCompany(state.companies, action.payload.id).slice(),
             }
         case setAdminCompanyVerifiedRoutine.TRIGGER:
             return {
                 ...state,
             }
         case setAdminCompanyVerifiedRoutine.FAILURE:
-            return {
-                ...state,
-            }
-        case setAdminCompanyVerifyDismissRoutine.SUCCESS:
-            return {
-                ...state,
-                companies: removeById(state.companies, action.payload.id),
-            }
-        case setAdminCompanyVerifyDismissRoutine.TRIGGER:
-            return {
-                ...state,
-            }
-        case setAdminCompanyVerifyDismissRoutine.FAILURE:
             return {
                 ...state,
             }

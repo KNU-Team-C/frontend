@@ -41,3 +41,13 @@ export const getIndustries = async (payload) => {
 
 	return result.json();
 }
+
+export const addCompany = async (payload) => {
+	const result = await callWebApi({
+		endpoint: '/companies',
+		type: 'POST',
+		request: payload
+	})
+
+	return result.json();
+}

@@ -25,7 +25,7 @@ function getFetchArgs(args) {
         }
         // headers['Content-Type'] = 'multipart/form-data';
         const formData = new FormData();
-        formData.append('image', args.attachment);
+        formData.append('file', args.attachment);
         body = formData;
     } else if (args.request) {
         if (args.type === 'GET') {
