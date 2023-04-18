@@ -62,7 +62,7 @@ export const setCompanyVerifyDismiss = async ({companyId}) => {
     const endpoint = '/admin/company/' + companyId + '/verify_request_cancel'
     const result = await callWebApi({
         endpoint: endpoint,
-        type: 'GET'
+        type: 'POST'
     }).then((response) => {
         return response.json();
     })
@@ -79,9 +79,7 @@ export const setUserBanned = async ({userId, banned}) => {
         endpoint,
         request: {'banned': banned},
         type: 'PUT',
-    }).then((response) => {
-        return response.json();
     });
-    return result;
+    return result.json();
 };
 

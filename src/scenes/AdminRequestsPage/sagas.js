@@ -1,11 +1,15 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { toastr } from 'react-redux-toastr';
-import {getAdminRequestsCompaniesRoutine, getAdminRequestsUsersRoutine} from './routines';
+import {all, call, put, takeEvery} from 'redux-saga/effects';
+import {toastr} from 'react-redux-toastr';
+import {
+    getAdminRequestsCompaniesRoutine,
+    getAdminRequestsUsersRoutine,
+    setAdminCompanyVerifyDismissRoutine,
+    setAdminCompanyVerifiedRoutine,
+    setUserBannedRoutine
+} from './routines';
 import * as service from './service';
-import {setAdminCompanyVerifiedRoutine, setAdminCompanyVerifyDismissRoutine} from "../AdminCompanySearch/routines";
-import {setUserBannedRoutine} from "../AdminUserSearch/routines";
 
-function* setCompanyVerified({ payload }) {
+function* setCompanyVerified({payload}) {
     console.log('setCompanyVerified');
     try {
         const response = yield call(() => service.setCompanyVerified(payload));
@@ -19,7 +23,8 @@ function* setCompanyVerified({ payload }) {
 function* watchSetCompanyVerified() {
     yield takeEvery(setAdminCompanyVerifiedRoutine.TRIGGER, setCompanyVerified);
 }
-function* setCompanyVerifyDismiss({ payload }) {
+
+function* setCompanyVerifyDismiss({payload}) {
     console.log('setCompanyVerifyDismiss');
     try {
         const response = yield call(() => service.setCompanyVerifyDismiss(payload));
@@ -49,7 +54,8 @@ function* setUserBanned({payload}) {
 function* watchSetUserBanned() {
     yield takeEvery(setUserBannedRoutine.TRIGGER, setUserBanned);
 }
-function* getUsers({ payload }) {
+
+function* getUsers({payload}) {
     console.log('GETTING REQUESTS USERS');
     try {
         const response = yield call(() => service.getUsers(payload));
@@ -63,7 +69,8 @@ function* getUsers({ payload }) {
 function* watchGetUsers() {
     yield takeEvery(getAdminRequestsUsersRoutine.TRIGGER, getUsers);
 }
-function* getCompanies({ payload }) {
+
+function* getCompanies({payload}) {
     console.log('GETTING REQUESTS COMPANIES');
     try {
         const response = yield call(() => service.getCompanies(payload));

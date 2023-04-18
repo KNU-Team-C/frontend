@@ -11,3 +11,7 @@ export const clearToken = () => {
     localStorage.removeItem(USER_ID);
     localStorage.removeItem(IS_STAFF)
 };
+
+export const getToken = () => {
+    return localStorage.getItem(TOKEN_NAME);
+}
