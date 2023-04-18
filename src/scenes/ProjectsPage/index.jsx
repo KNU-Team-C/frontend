@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { getProjectsRoutine } from './routines';
 import { getTechnologiesRoutine, getIndustriesRoutine } from '../CompaniesPage/routines';
 import ProjectCard from '../../components/ProjectCard';
+import { useParams } from 'react-router-dom';
 
 const ProjectsPage = ({
 	technologiesLoading,
@@ -23,10 +24,12 @@ const ProjectsPage = ({
 	getProjects
 }) => {
 	useEffect(() => {
-		getProjects({});
+		getProjects({ companyId });
 		getIndustries();
 		getTechnologies();
 	}, []);
+
+	const { companyId } = useParams();
 
 	const [searchText, setSearchText] = useState(''); // input text before clicking on search
 	const [currentText, setCurrentText] = useState(searchText); // text with which the results are filtered
@@ -39,6 +42,7 @@ const ProjectsPage = ({
 	const searchProjects = () => {
 		setCurrentText(searchText);
 		getProjects({
+			companyId,
 			query: searchText,
 			industries: selectedIndustries,
 			technologies: selectedTechnologies
@@ -57,10 +61,10 @@ const ProjectsPage = ({
 					title={'Industries'}
 					onReset={() => {
 						setSelectedIndustries([]);
-						getProjects({ industries: [], selectedTechnologies, query: currentText });
+						getProjects({ companyId, industries: [], selectedTechnologies, query: currentText });
 					}}
 					onInput={(e) => {
-						getProjects({ query: e.target.value });
+						getProjects({ companyId, query: e.target.value });
 					}}
 				>
 					<Loader active={industriesLoading} inline />
@@ -70,7 +74,7 @@ const ProjectsPage = ({
 							onSelectionChange={() => {
 								const ids = addOrRemoveIfPresent(ind.id, selectedIndustries);
 								setSelectedIndustries(ids);
-								getProjects({ query: currentText, industries: ids, technologies: selectedTechnologies });
+								getProjects({ companyId, query: currentText, industries: ids, technologies: selectedTechnologies });
 							}}
 							text={ind.name}
 							amount={''}
@@ -82,7 +86,7 @@ const ProjectsPage = ({
 					title={'Technologies'}
 					onReset={() => {
 						setSelectedTechnologies([]);
-						getProjects({ industries: selectedIndustries, technologies: [], query: currentText });
+						getProjects({ companyId, industries: selectedIndustries, technologies: [], query: currentText });
 					}}
 					onInput={(e) => {
 						getTechnologies({ query: e.target.value });
@@ -94,7 +98,7 @@ const ProjectsPage = ({
 							onSelectionChange={() => {
 								const ids = addOrRemoveIfPresent(tech.id, selectedTechnologies);
 								setSelectedTechnologies(ids);
-								getProjects({ query: currentText, industries: selectedIndustries, technologies: ids });
+								getProjects({ companyId, query: currentText, industries: selectedIndustries, technologies: ids });
 							}}
 							text={tech.name}
 							amount={''}

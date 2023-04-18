@@ -162,7 +162,7 @@ const CompanyPage = ({
 							<button className={styles.btn} onClick={() => save()}>Save</button>}
 						{ownCompany && edit &&
 							<button className={styles.btn_reverted} onClick={() => cancel()}>Cancel</button>}
-						<button className={styles.btn} onClick={() => history.push(`/company/${id}/projects`)}>View Projects</button>
+						<button className={styles.btn} onClick={() => history.push(`/company-projects/${id}`)}>View Projects</button>
 					</div>
 				</div>
 
