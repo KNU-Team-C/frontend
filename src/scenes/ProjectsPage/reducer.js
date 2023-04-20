@@ -1,8 +1,9 @@
-import { getProjectsRoutine } from './routines';
+import { createProjectRoutine, getProjectsRoutine } from './routines';
 
 const initialState = {
 	loading: true,
 	projects: [],
+	projectLoading: false,
 }
 
 const projectsData = (state = initialState, action) => {
@@ -23,6 +24,22 @@ const projectsData = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
+			}
+		case createProjectRoutine.TRIGGER:
+			return {
+				...state,
+				projectLoading: true
+			}
+		case createProjectRoutine.SUCCESS:
+			return {
+				...state,
+				projects: [action.payload, ...state.projects],
+				projectLoading: false,
+			}
+		case createProjectRoutine.FAILURE:
+			return {
+				...state,
+				projectLoading: false,
 			}
 		default: {
 			return state;

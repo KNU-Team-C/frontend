@@ -31,3 +31,22 @@ export const getIndustries = async (payload) => {
 
 	return result.json();
 }
+
+export const createProject = async ({ title, url, description, companyId }) => {
+	const result = await callWebApi({
+		endpoint: '/projects',
+		type: 'POST',
+		request: {
+			title,
+			url,
+			description,
+			isPublic: true,
+			technologies: [],
+			industries: [],
+			attachments: [],
+			company: companyId
+		}
+	})
+
+	return result.json();
+}
