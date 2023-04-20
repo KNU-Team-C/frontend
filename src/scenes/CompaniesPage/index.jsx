@@ -48,6 +48,11 @@ const CompaniesPage = ({
 		});
 	}
 
+	const toStr = (list) => {
+		const str = list.map(ind => ind.name).join(', ');
+		return str === '' ? '-' : str;
+	}
+
 	const addOrRemoveIfPresent = (id, values) => {
 		return values.includes(id) ? [...values.filter(v => v !== id)] : [...values, id];
 	}
@@ -130,9 +135,9 @@ const CompaniesPage = ({
 						id={c.id}
 						companyName={c.name}
 						image={c.logo}
-						status={c.isVerified ? 'Verified' : 'Not verified'}
-						industries={c.industries.map(i => i.name)}
-						technologies={c.technologies.map(t => t.name)}
+						status={c['is_verified'] ? 'Verified' : 'Not verified'}
+						industries={toStr(c.industries)}
+						technologies={toStr(c.technologies)}
 						details={c.description}
 					/>
 				))}

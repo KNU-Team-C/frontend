@@ -5,6 +5,8 @@ import { history } from '../../helpers/history.helper';
 
 const ProjectCard = (props) => {
 	const {
+		own,
+		id,
 		title,
 		image,
 		companyName,
@@ -40,6 +42,13 @@ const ProjectCard = (props) => {
 			infoItems={infoItems}
 			details={description}
 			subHeader={subHeader()}
+			onCardClick={() => {
+				if (own) {
+					history.push(`/own-project/${id}`);
+				} else {
+					history.push(`/project/${id}`);
+				}
+			}}
 		/>
 	);
 }

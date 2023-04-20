@@ -13,6 +13,7 @@ import { history } from '../../helpers/history.helper';
 import { toastr } from 'react-redux-toastr';
 import placeholder from '../../assets/image-placeholder.png';
 import loader from '../../assets/loader.gif';
+import { createChat } from '../ChatsPage/service';
 
 const CompanyPage = ({
 	loading,
@@ -162,7 +163,16 @@ const CompanyPage = ({
 							<button className={styles.btn} onClick={() => save()}>Save</button>}
 						{ownCompany && edit &&
 							<button className={styles.btn_reverted} onClick={() => cancel()}>Cancel</button>}
-						<button className={styles.btn} onClick={() => history.push(`/company-projects/${id}`)}>View Projects</button>
+						<button className={styles.btn} onClick={() => {
+							if (ownCompany) {
+								history.push(`/company-own-projects/${id}`);
+							} else {
+								history.push(`/company-projects/${id}`);
+							}
+						}}>View Projects</button>
+						{!ownCompany && <button className={styles.btn} onClick={() => {
+							createChat(company.user).then(() => history.push('/chats'));
+						}}>Contact</button>}
 					</div>
 				</div>
 

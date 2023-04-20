@@ -1,10 +1,14 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.sass';
 import ChatInfo from '../../components/ChatComponents/ChatInfo';
 import ChatMessage from "../../components/ChatComponents/ChatMessage";
 import ChatClient from "./client";
-import {getToken} from "../../helpers/token.helper";
-import {createChat, getChats, getMe, getMessages} from "./service";
+import { getToken } from "../../helpers/token.helper";
+import { createChat, getChats, getMe, getMessages } from "./service";
+
+const paddedDate = (num) => {
+    return num.toString().padStart(2, '0');
+}
 
 const parseDate = (date) => {
     const d = new Date(date);
@@ -12,11 +16,11 @@ const parseDate = (date) => {
     // else - show date
     const today = new Date();
     if (d.getDate() === today.getDate() && d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear()) {
-        return `${d.getHours()}:${d.getMinutes()}`;
+        return `${paddedDate(d.getHours())}:${paddedDate(d.getMinutes())}`;
     } else if (d.getFullYear() === today.getFullYear()) {
-        return `${d.getDate()}.${d.getMonth()} ${d.getHours()}:${d.getMinutes()}`;
+        return `${d.getDate()}.${paddedDate(d.getMonth())} ${paddedDate(d.getHours())}:${paddedDate(d.getMinutes())}`;
     } else {
-        return `${d.getDate()}.${d.getMonth()}.${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}`;
+        return `${d.getDate()}.${paddedDate(d.getMonth())}.${d.getFullYear()} ${paddedDate(d.getHours())}:${paddedDate(d.getMinutes())}`;
     }
 }
 
@@ -47,6 +51,7 @@ function ChatPage() {
                 return {
                     text: message.message,
                     time: parseDate(message.date),
+                    // time: message.date,
                     user_id: message.user_id,
                 };
             }));
@@ -154,16 +159,15 @@ function ChatPage() {
         <div className={styles.chatWrapper}>
             <div className={styles.chatContainer}>
                 <div className={styles.chatsList}>
-                    <div className={styles.chatsListHeader}>
-                            Chats
-                            <button className={styles.createChatButton} onClick={handleCreateChatButtonClick}>Create chat</button>
+                    <div className={styles.chatHeader}>
+                        <button className={styles.createChatButton} onClick={handleCreateChatButtonClick}>Start new chat</button>
                     </div>
                     <div className={styles.chatItems}>
                         {
                             chats.sort((a, b) => a.id < b.id).map((chat, index) => {
                                 return (
                                     <div key={index} onClick={() => changeChat(chat.id)}>
-                                        <ChatInfo key={index} user={{ icon: chat.ava_url, name: chat.chat_name, lastMessage: chat.last_message}} active={chat.id === currentChat}></ChatInfo>
+                                        <ChatInfo key={index} user={{ icon: chat.ava_url, name: chat.chat_name, lastMessage: chat.last_message }} active={chat.id === currentChat}></ChatInfo>
                                     </div>
                                 )
                             })
@@ -171,7 +175,6 @@ function ChatPage() {
                     </div>
                 </div>
                 <div className={styles.chatMessages}>
-                    <div className={styles.chatMessagesHeader}>Name</div>
                     <div className={styles.chatBodyWrapper}>
                         <div className={styles.chatBody} ref={messagesContainerRef}>
                             {
@@ -183,12 +186,12 @@ function ChatPage() {
                             }
                         </div>
                         <form className={styles.chatInputWrapper} onSubmit={(e) => {
-                                e.preventDefault();
-                                sendMessage(e.target.msg.value);
-                                e.target.msg.value = "";
-                            }
+                            e.preventDefault();
+                            sendMessage(e.target.msg.value);
+                            e.target.msg.value = "";
+                        }
                         }>
-                            <input type="text" name="msg" className={styles.chatInput} required/>
+                            <input type="text" name="msg" className={styles.chatInput} required />
                             <button className={styles.chatInputButton}>Send</button>
                         </form>
                     </div>

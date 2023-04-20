@@ -8,6 +8,7 @@ import adminRequestsSagas from "./scenes/AdminRequestsPage/sagas";
 import companySagas from './scenes/CompanyPage/sagas';
 import projectsSagas from './scenes/ProjectsPage/sagas';
 import profileSagas from "./scenes/ProfilePage/sagas";
+import projectSagas from './scenes/ProjectPage/sagas';
 
 export default function* rootSaga() {
     yield all([
@@ -20,5 +21,6 @@ export default function* rootSaga() {
         companySagas(),
         projectsSagas(),
         profileSagas(),
+        projectSagas(),
     ]);
 }

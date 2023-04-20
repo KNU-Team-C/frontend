@@ -7,12 +7,14 @@ import styles from './styles.module.sass';
 import classNames from '../../commons/classnames';
 import emptyListImage from '../../assets/empty-list.png';
 import { connect } from 'react-redux';
-import { getProjectsRoutine } from './routines';
+import { createProjectRoutine, getProjectsRoutine } from './routines';
 import { getTechnologiesRoutine, getIndustriesRoutine } from '../CompaniesPage/routines';
 import ProjectCard from '../../components/ProjectCard';
 import { useParams } from 'react-router-dom';
+import AddProjectModal from './AddProjectModal';
 
 const ProjectsPage = ({
+	own,
 	technologiesLoading,
 	industriesLoading,
 	industries,
@@ -21,7 +23,9 @@ const ProjectsPage = ({
 	getTechnologies,
 	projects,
 	projectsLoading,
-	getProjects
+	getProjects,
+	createProject,
+	projectLoading,
 }) => {
 	useEffect(() => {
 		getProjects({ companyId });
@@ -30,6 +34,7 @@ const ProjectsPage = ({
 	}, []);
 
 	const { companyId } = useParams();
+	const [modalOpen, setModalOpen] = useState(false);
 
 	const [searchText, setSearchText] = useState(''); // input text before clicking on search
 	const [currentText, setCurrentText] = useState(searchText); // text with which the results are filtered
@@ -55,6 +60,18 @@ const ProjectsPage = ({
 
 	return (
 		<div className={styles.projects_container}>
+			{own && <button
+				className={styles.create_project_btn}
+				onClick={() => setModalOpen(true)}
+			>+</button>}
+			<AddProjectModal
+				companyId={companyId}
+				open={modalOpen}
+				setOpen={setModalOpen}
+				addProject={createProject}
+				projectLoading={projectLoading}
+			/>
+
 			<div className={classNames(styles.vertical, styles.filters)}>
 				<TagFilter
 					className={styles.tag_filter}
@@ -119,6 +136,8 @@ const ProjectsPage = ({
 				{projects.map(p => (
 					<ProjectCard
 						key={p.id}
+						id={p.id}
+						own={own}
 						title={p.title}
 						image={p['logo_url']}
 						companyName={p.company.name}
@@ -140,12 +159,14 @@ const mapStateToProps = (state) => ({
 	technologies: state.companiesData.technologies,
 	industriesLoading: state.companiesData.industriesLoading,
 	technologiesLoading: state.companiesData.technologiesLoading,
+	projectLoading: state.projectsData.projectLoading,
 });
 
 const mapDispatchToProps = {
 	getTechnologies: getTechnologiesRoutine,
 	getIndustries: getIndustriesRoutine,
 	getProjects: getProjectsRoutine,
+	createProject: createProjectRoutine,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsPage);

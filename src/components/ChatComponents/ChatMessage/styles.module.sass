@@ -1,6 +1,6 @@
 @import 'src/styles/variables'
 
-$sender-color: $yellow
+$sender-color: $heliotrope-light
 $receiver-color: $dodger-blue
 $chat-message-padding: 10px
 $chat-message-border-radius: 10px
@@ -16,7 +16,6 @@ $message-time-color: $grey1
   &.isMine 
     align-items: flex-end
 
-
   .chatMessage 
     max-width: $chat-message-max-width
     padding: $chat-message-padding
@@ -26,13 +25,12 @@ $message-time-color: $grey1
 
     &.isMine 
       background-color: $sender-color
-      color: $black
+      color: $white
   
 
     &:not(.isMine) 
       background-color: $receiver-color
       color: $white
-  
 
 
   .chatMessageInfoWrapper 

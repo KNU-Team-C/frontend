@@ -8,6 +8,7 @@ import adminRequestsData from "./scenes/AdminRequestsPage/reducer";
 import profileData from "./scenes/ProfilePage/reducer";
 import companyData from "./scenes/CompanyPage/reducer";
 import projectsData from "./scenes/ProjectsPage/reducer";
+import projectData from "./scenes/ProjectPage/reducer";
 
 export default combineReducers({
     toastr,
@@ -19,4 +20,5 @@ export default combineReducers({
     companyData,
     projectsData,
     profileData,
+    projectData,
 });

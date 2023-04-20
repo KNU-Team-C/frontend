@@ -20,6 +20,7 @@ import CompanyPage from '../../scenes/CompanyPage';
 import ProjectsPage from '../../scenes/ProjectsPage';
 import AdminHomePage from "../../scenes/AdminHomePage";
 import ProfilePage from "../../scenes/ProfilePage";
+import ProjectPage from '../../scenes/ProjectPage';
 
 
 const App = () => (
@@ -35,11 +36,14 @@ const App = () => (
             <Route exact path="/user/companies" component={() => <CompaniesPage own={true} />} />
             <Route exact path="/companies" component={CompaniesPage} />
             <Route exact path="/company/:id" component={CompanyPage} />
+            <Route exact path="/project/:id" component={ProjectPage} />
+            <Route exact path="/own-project/:id" component={() => <ProjectPage own={true} />} />
             <Route exact path="/projects" component={ProjectsPage} />
             <Route exact path="/company-projects/:companyId" component={ProjectsPage} />
+            <Route exact path="/company-own-projects/:companyId" component={() => <ProjectsPage own={true} />} />
             <Route exact path="/profile/:id"
-                   render={(props) => <ProfilePage id={props.match.params.id} own={false}/>}/>
-            <Route exact path="/personal-profile" component={() => <ProfilePage own={true}/>}/>
+                render={(props) => <ProfilePage id={props.match.params.id} own={false} />} />
+            <Route exact path="/personal-profile" component={() => <ProfilePage own={true} />} />
             <Route exact path="/signin" component={SignInPage} />
             <Route exact path="/signup" component={SignUpPage} />
             <Route exact path="/chats" component={ChatsPage} />
